@@ -2,7 +2,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1
+// @version     1.1
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -62,7 +62,7 @@ function UpdateItemColor()
 
 $(document).ready(function(){
     UpdateItemColor();
-    $("#tradelist").bind("DOMSubtreeModified", function(){UpdateItemColor()});
+    $(document.body).bind("DOMSubtreeModified", function(){UpdateItemColor()});
 });
 
 $(".item" ).click(function() {
@@ -74,6 +74,49 @@ $(".item" ).click(function() {
 
 $("#submenu>div").first()
     .append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
-    .append($("<a>").html("Check for Update"))
-    .append($("<a>").html("Donations ♥"));
+    .append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
+    .append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
+    .append($("<a>").html("Install Latest Version").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js"}))
+    .append($("<a>").html("Contributors").attr({"class": "showContributor"}))
+    .append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}));
 
+
+
+
+$("body").append(
+    $("<div>").attr(
+	{
+	    "id" : "modalAssistant"
+	}
+    ).append(
+	$("<a>").attr(
+	    {
+		"class" : "buttonright",
+		"onclick" : "$(this).parent().fadeOut('fast')"
+	    }
+	).html("  X ")
+    ).append(
+	$("<div>").attr(
+	    {
+		"id" : "modalCnt"
+	    }
+	)
+    )
+);
+
+function showContributor() {
+    $("#modalCnt").html('<img src="../img/load.gif" id="loading" style="margin: 0.75em 2%">');
+    GM_xmlhttpRequest({
+	context: document.body,
+	method: "GET",
+//	url: "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/contributors.html",
+	url: "http://127.0.0.1:8888/contributors.html",
+	onload: function(response) {
+            var document = response.context
+	    $(document).find("#modalCnt").html(response.responseText);
+	}
+    });
+    $("#modalAssistant").slideDown('fast');
+}
+
+$(".showContributor").click(function(){showContributor()});

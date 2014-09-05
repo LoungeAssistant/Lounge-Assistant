@@ -128,11 +128,11 @@ body {
 }
 
 .winsorloses {
+    margin-left: 25%;
     background: #313131;
     border: solid 1px black;
     border-radius: 0;
     margin-right: 5px;
-    width: 98%;
 }
 
 /*######################################################################*/
@@ -279,6 +279,31 @@ tr:nth-child(even) {
 /* TRADE */
 /*######################################################################*/
 
+#notes{
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.message{
+    background : none;
+    box-shadow: none;
+}
+
+.user>b{
+    font-weight : bold;
+    font-size : 16px;
+    color : #FF8A00;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px;
+}
+
+.msgleft{
+    font-weight : bold;
+    color : white !important;
+}
+
+.msgleft>b>.user{
+    color: #888 !important;
+}
+
 #satrade {
     background-color: rgba(15, 15, 14, 0.36);
     border: solid 1px black;
@@ -305,6 +330,7 @@ tr:nth-child(even) {
 }
 
 
+
 .menuAssistant{
     font-size: 16px;
     font-weight : bold;
@@ -312,4 +338,45 @@ tr:nth-child(even) {
     cursor : default;
     text-shadow : rgb(0, 0, 0) 1px 1px 0px;
 
+}
+
+
+
+#modalAssistant {
+    z-index: 1;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    border-radius: 10px;
+    box-shadow: #000 1px 1px 3px 1px;
+    background-color: #555;
+}
+
+#modalCnt{
+    padding: 50px;
+}
+
+
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+}
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+tr {
+    color: rgb(187, 187, 187);
+}
+
+th {
+    width: 150px;
+    background-color: rgba(0, 0, 0, 1);
+}
+
+#modalCnt>table>tbody>tr>td{
+    text-align:center;
+}
+
+#modalAssistant>a{
+    z-index:100;
 }
