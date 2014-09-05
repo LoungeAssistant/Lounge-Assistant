@@ -1,0 +1,315 @@
+/*######################################################################*/
+/* MODAL */
+/*######################################################################*/
+html{
+    font-family: 'Proxima Nova Regular', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+}
+#modalPreview {
+    background-image : radial-gradient(at 50% 50%, rgba(193, 193, 193, 0.952941) 0%, rgba(109, 109, 109, 0.8) 90%) !important;
+    box-shadow : 2px 2px 6px 2px #000 !important;
+}
+
+/*######################################################################*/
+/* ITEMS */
+/*######################################################################*/
+
+.name {
+    border : 0.5px solid #FFF;
+    background-image : radial-gradient(at 50% 50%, rgb(86, 86, 86) 0%, rgb(56, 56, 56)) !important;
+    color: rgb(187, 187, 187) !important;
+    border-color: rgb(102, 102, 102) !important;
+    box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 5px 0px !important;
+}
+
+.name>a {
+    color : rgb(255, 138, 0) !important;
+    text-shadow: rgb(0, 0, 0) 0px 0px 1px !important;
+}
+
+.rarity{
+    color : white !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+    box-shadow : rgba(0, 0, 0, 0.9) 0px 2px 15px 0px inset !important;
+    margin-top : -5px !important;
+    border-radius : 0 !important;
+    height : 10px !important;
+}
+
+.item{
+    cursor: pointer;
+}
+
+/*######################################################################*/
+/* MAIN PAGE */
+/*######################################################################*/
+
+
+.box  {
+    background-color: rgba(45, 45, 45, 0.7) !important;
+    width: 48% !important;
+    height: auto;
+    border: 1px solid black;
+    color: rgb(187, 187, 187);
+    padding-bottom: 20px;
+}
+#submenu {
+    float: left;
+    height:'+ ($(document).height() - 66) +'px;
+    background: #313131}
+#main {
+    margin-right: 0px;
+    margin-left : 205px}
+.left, .right {
+    background-color: rgba(35, 35, 35, 0.7);
+    border: solid 1px black;
+    border-radius: 0;
+    width: 48%;
+    padding: 2px;
+}
+body {
+    background: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL)}
+
+
+/*######################################################################*/
+/* TRADE */
+/*######################################################################*/
+
+
+.tradeheader {
+    font-size : 16px;
+    background: none;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%)
+}
+.tradeheader>.button {
+    float: right;
+    background: #FFF;
+    font-weight: bold
+}
+
+.tradeheader>a {
+    color: #FFF !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+}
+.tradeheader>a>span.user>b {
+    color: #888 !important;
+}
+
+.tradepoll {
+    margin-bottom: auto;
+    width: 100%
+}
+
+.tradecnt {
+    background-size: 2% auto
+}
+.item {
+    height: auto;
+    width: 22% !important;
+    background-image: radial-gradient(at 40% 40%, rgb(63, 63, 63) 0%, rgb(41, 41, 41) 80%);
+    border: 1px solid black
+}
+
+
+/*######################################################################*/
+/* MATCH */
+/*######################################################################*/
+
+
+.matchheader {
+    font-size : 16px;
+    background: none;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%);
+}
+
+.whenm {
+    color: white;
+    text-shadow : none;
+    font-weight: bold;
+}
+
+.winsorloses {
+    background: #313131;
+    border: solid 1px black;
+    border-radius: 0;
+    margin-right: 5px;
+    width: 98%;
+}
+
+/*######################################################################*/
+/* BUTTON */
+/*######################################################################*/
+
+
+.simplePagerNav>li>a, .buttonright, .button {
+    background-image: linear-gradient(rgb(63, 63, 63) 0%, rgb(38, 38, 38) 100%) !important;
+    box-shadow: rgb(0, 0, 0) 0px 0px 4px 0px !important;
+
+    color: #c7c7c7 !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+    font-weight : bold;
+    font-size : 16px;
+}
+
+
+/*######################################################################*/
+/* PROFILE */
+/*######################################################################*/
+
+
+.box-shiny-alt, .box-shiny, #ajaxCont{
+    background-color: none;
+    background-image : none;
+    color: rgb(187, 187, 187) !important;
+    border: none;
+    box-shadow : none;
+    border-radius : 0;
+}
+
+.box-shiny-alt>div>h1{
+   color : rgb(255, 138, 0);
+   text-shadow : none !important;
+   font-weight : bold;
+}
+
+.full>a, .box-shiny-alt>div>a{
+    color : rgb(255, 138, 0);
+    text-shadow : none !important;
+    font-weight : bold;
+}
+
+.selectbox{
+    background-color: rgb(63, 63, 63);
+    color: rgb(187, 187, 187);
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 3px 0px inset;
+    border : 1px solid;
+    border-radius : 3px;
+    border-color: rgb(17, 17, 17);
+}
+/*######################################################################*/
+/* BET HISTORY */
+/*######################################################################*/
+
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    background: transparent;
+    border-top: 1px solid rgb(51, 51, 51);
+    border-bottom: 1px solid rgb(37, 37, 37);
+    font-weight: bold ;
+    height: 27px;
+}
+
+tr>td>a{
+    color: rgb(255, 138, 0);
+}
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+
+}
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.won, .lost{
+    text-shadow: rgb(0, 0, 0) 0px 0px 5px !important;
+    background-color : rgba(0, 0, 0, 0.5);
+    padding-bottom: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    border-radius : 3px;
+    widt : auto;
+}
+
+.won{
+    color: rgb(142, 193, 62);
+}
+
+.lost{
+    color: rgb(209, 33, 33);
+}
+
+/*######################################################################*/
+/* MY BET */
+/*######################################################################*/
+
+.bpheader{
+    background-color: rgba(0, 0, 0, 0);
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.298039) 0%, rgba(41, 41, 41, 0) 65%);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: bold;
+    height: 15px;
+}
+
+
+.match{
+    background-color: rgba(15, 15, 14, 0.36);
+    border: solid 1px black;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+    color: rgb(187, 187, 187) !important;
+}
+
+
+.match>.half>a>span{
+    color: rgb(255, 138, 0);
+    font-weight: bold;
+}
+
+.match>.full>span{
+    display:none;
+}
+
+.potwin.Value{
+    float: right;
+    font-size : 24px;
+    font-weight: bold;
+    padding: 5px;
+    background-color: rgb(17, 17, 17);
+}
+
+
+
+/*######################################################################*/
+/* TRADE */
+/*######################################################################*/
+
+#satrade {
+    background-color: rgba(15, 15, 14, 0.36);
+    border: solid 1px black;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+    color: rgb(187, 187, 187) !important;
+    background-image : none;
+}
+.tradepoll{
+    color: rgb(187, 187, 187) !important;
+    background-size: 5% auto !important;
+    width: 98%;
+}
+
+.tradepoll>.left, .tradepoll>.right{
+    min-height: 150px;
+    width: 45%;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+}
+
+
+.tabholder > .tab{
+    background-color: black;
+    color : white;
+}
+
+
+.menuAssistant{
+    font-size: 16px;
+    font-weight : bold;
+    text-align: center;
+    cursor : default;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px;
+
+}
