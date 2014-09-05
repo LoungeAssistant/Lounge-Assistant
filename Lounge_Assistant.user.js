@@ -8,47 +8,13 @@
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css http://127.0.0.1:8888/style.css
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
 
 
 GM_addStyle(GM_getResourceText("css"));
-
-var ItemPrice = {};
-
-function updateItems()
-{
-    var lastUpdate = GM_getValue("lastUpdate", 0);
-    var date = Date.now();
-
-    if (lastUpdate == 0 || (date - lastUpdate) < 3600)
-    {
-	GM_xmlhttpRequest({
-	    method: "GET",
-	    context : ItemPrice,
-	    url: "http://csgolounge.com/availableweapons",
-	    onload: function(response) {
-		console.log('test');
-		var ItemPrice = response.context;
-		var weaponList = response.responseText;
-		weaponList = weaponList.replace(/&lt;/g, "<").replace(/&gt;/g, ">").split("\t\t");
-		weaponList.shift();
-		$.each(weaponList, function(idx, data){
-		    var name = $($(data)[0]).text();
-		    var price = $($(data)[1]).text();
-		    ItemPrice[name] = price;
-		});
-		GM_setValue("ItemPrice", ItemPrice);
-		GM_setValue("lastUpdate", date);
-	    }
-	});
-    } else{
-	ItemPrice = GM_getValue("ItemPrice", {});
-    }
-}
-updateItems();
 
 //######################################################################
 // ITEMS
@@ -104,7 +70,6 @@ $(".item" ).click(function() {
     $("#modalImg").attr("src", newSrc);
     $("#modalPreview").fadeIn("fast");
 });
-
 
 
 $("#submenu>div").first()
