@@ -75,6 +75,7 @@ $(".item" ).click(function() {
 $("#submenu>div").first()
     .append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
     .append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
+    .append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
     .append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
     .append($("<a>").html("Install Latest Version").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js"}))
     .append($("<a>").html("Contributors").attr({"class": "showContributor"}))
