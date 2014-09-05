@@ -109,8 +109,7 @@ function showContributor() {
     GM_xmlhttpRequest({
 	context: document.body,
 	method: "GET",
-//	url: "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/contributors.html",
-	url: "http://127.0.0.1:8888/contributors.html",
+	url: "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/contributors.html",
 	onload: function(response) {
             var document = response.context
 	    $(document).find("#modalCnt").html(response.responseText);
