@@ -2,7 +2,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.1
+// @version     1.1.1
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -12,7 +12,6 @@
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
-
 
 GM_addStyle(GM_getResourceText("css"));
 
@@ -73,13 +72,13 @@ $(".item" ).click(function() {
 
 
 $("#submenu>div").first()
-    .append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
-    .append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
-    .append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
-    .append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
-    .append($("<a>").html("Install Latest Version").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js"}))
-    .append($("<a>").html("Contributors").attr({"class": "showContributor"}))
-    .append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}));
+    .append($('<div>').attr({'id' : 'AssistantMenu'})
+	    .append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
+	    .append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
+	    .append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
+	    .append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
+	    .append($("<a>").html("Contributors").attr({"class": "showContributor"}))
+	    .append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"})));
 
 
 
@@ -104,6 +103,40 @@ $("body").append(
 	)
     )
 );
+
+function isUpToDate(){
+    var date = Date.now();
+    var lastCheck = GM_getValue('lastCheck', 0);
+
+    console.log(date);
+    console.log(lastCheck);
+    if (date - lastCheck > 3600 * 1000)
+	{
+	    GM_xmlhttpRequest({
+		context: document.body,
+		method: "GET",
+		url: "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js",
+		onload: function(response) {
+		    var document = response.context
+		    var newVersion = response.responseText.match('^// @version\\s+(.*)$', "m");
+		    console.log(newVersion[1]);
+		    console.log(GM_info.script.version);
+		    if (newVersion[1] != GM_info.script.version)
+			{
+			    $(document).find("#AssistantMenu").append(
+				$("<a>").html(" ⚠ Install Latest Version ⚠ ").attr(
+				    {
+					"href": "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js",
+					"style" : "color:red"
+				    }));
+ 			}
+		}
+	    });
+	    GM_setValue('lastCheck', date);
+	}
+}
+
+isUpToDate();
 
 function showContributor() {
     $("#modalCnt").html('<img src="../img/load.gif" id="loading" style="margin: 0.75em 2%">');
