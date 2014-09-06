@@ -19,6 +19,7 @@ html{
     color: rgb(187, 187, 187) !important;
     border-color: rgb(102, 102, 102) !important;
     box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 5px 0px !important;
+    margin-top: 10px;
 }
 
 .name>a {
