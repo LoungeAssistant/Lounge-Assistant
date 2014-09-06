@@ -2,7 +2,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.2.1
+// @version     1.2.2
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -14,6 +14,28 @@
 // ==/UserScript==
 
 GM_addStyle(GM_getResourceText("css"));
+var currency = {
+    "$"    : "1",
+    "£"    : "2",
+    "€"    : "3",
+    "pуб"  : "5",
+    "R$"   : "7",
+    "¥"    : "8",
+    "kr"   : "9",
+    "Rp"   : "10",
+    "RM"   : "11",
+    "P"    : "12",
+    "S$"   : "13",
+    "฿"    : "14",
+    "₫"    : "15",
+    "₩"    : "16",
+    "TL"   : "17",
+    "₴"    : "18",
+    "Mex$" : "19",
+    "C$"   : "20",
+    "A$"   : "21",
+    "NZ$"  : "22"
+}
 
 var PriceList = {};
 
@@ -69,8 +91,6 @@ function UpdateItem()
 	var itemName = $(this).find(".smallimg").first().attr("alt");
 
 	if (itemName in PriceList) {
-	    console.log("cached");
-	    console.log(PriceList[itemName]);
 	    $(this).find(".rarity").html(PriceList[itemName]);
 	    return;
 	}
@@ -79,7 +99,7 @@ function UpdateItem()
 	GM_xmlhttpRequest({
 	    context: context,
 	    method: "GET",
-	    url: "http://steamcommunity.com/market/priceoverview/?country=US&currency=3&appid=730&market_hash_name=" + itemName,
+	    url: "http://steamcommunity.com/market/priceoverview/?country=US&currency="+GM_getValue("currency", 0) +"&appid=730&market_hash_name=" + itemName,
 	    onload: function(response) {
 		var item = response.context.item;
 		var itemName = response.context.itemName;
@@ -88,7 +108,6 @@ function UpdateItem()
 		var price = 'Not found';
 
 		if (json.success){
-		    console.log(typeof json.lowest_price);
 		    if (typeof json.lowest_price != 'undefined')
 			price = json.lowest_price;
 		    else if (typeof json.median_price != 'undefined')
@@ -124,7 +143,19 @@ $("#submenu>div").first()
 	    .append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
 	    .append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
 	    .append($("<a>").html("Contributors").attr({"class": "showContributor"}))
-	    .append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"})));
+	    .append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
+	    .append($("<div>").attr({"class" : "currencydiv"})
+		    .append($("<span>").html("currency")).append($("<select>").attr({'class' : 'currencyList'}))
+		   )
+	   );
+
+$.each(currency, function (key, value){
+    var current = GM_getValue("currency", 0);
+    if (current == value)
+	$(".currencyList").append($("<option>").attr({'class' : 'currencyChoose', 'selected' : 'selected'}).html(key));
+    else
+	$(".currencyList").append($("<option>").attr({'class' : 'currencyChoose'}).html(key));
+});
 
 
 
@@ -195,3 +226,9 @@ function showContributor() {
 }
 
 $(".showContributor").click(function(){showContributor()});
+
+$(".currencyList").change(function(){
+    GM_setValue("currency", currency[$('.currencyList').val()]);
+    PriceList = {};
+    $(".priced").removeClass("priced");
+});
