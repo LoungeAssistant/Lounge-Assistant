@@ -2,7 +2,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.1.1
+// @version     1.2.1
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -14,6 +14,8 @@
 // ==/UserScript==
 
 GM_addStyle(GM_getResourceText("css"));
+
+var PriceList = {};
 
 //######################################################################
 // ITEMS
@@ -32,14 +34,18 @@ var colors = {
     "Extraordinary" : "#000000",
     "Contraband"    : "#E4AE39",
 };
-function UpdateItemColor()
+
+
+
+function UpdateItem()
 {
     $.each($(".item"), function (idx, data){
 	var rarityDiv = $(data).find(".rarity");
 	var rarity = rarityDiv.attr('class').replace("rarity ", "");
 	var itemName = $(data).find(".smallimg").attr("alt");
 
-	if (itemName.match("(^.*Any .*$)|(^.*Key.*$)|(^\\s+Knife\\s+$)"))
+
+	if (itemName.match("(^.*Any .*$)|(^\\s+Knife\\s+$)"))
 	{
 	    $(data).find(".rarity").css({
 		"visibility" : "hidden",
@@ -51,17 +57,54 @@ function UpdateItemColor()
 	    $(data).find(".rarity").css({
 		"background-color" : colors[rarity],
 	    });
-	} else {
-	    $(data).find(".rarity").css({
-		"visibility" : "hidden",
-	    });
 	}
+    });
+
+    $("div.item").unbind("mouseenter");
+    $("div.item").bind("mouseenter", function(evt){
+
+	if ($(this).hasClass("priced"))
+	    return;
+
+	var itemName = $(this).find(".smallimg").first().attr("alt");
+
+	if (itemName in PriceList) {
+	    console.log("cached");
+	    console.log(PriceList[itemName]);
+	    $(this).find(".rarity").html(PriceList[itemName]);
+	    return;
+	}
+	$(this).find(".rarity").html("Loading ...");
+	var context = {'PriceList' : PriceList, 'item' : $(this), 'itemName' : itemName};
+	GM_xmlhttpRequest({
+	    context: context,
+	    method: "GET",
+	    url: "http://steamcommunity.com/market/priceoverview/?country=US&currency=3&appid=730&market_hash_name=" + itemName,
+	    onload: function(response) {
+		var item = response.context.item;
+		var itemName = response.context.itemName;
+		var PriceList = response.context.PriceList;
+		var json = JSON.parse(response.responseText);
+		var price = 'Not found';
+
+		if (json.success){
+		    console.log(typeof json.lowest_price);
+		    if (typeof json.lowest_price != 'undefined')
+			price = json.lowest_price;
+		    else if (typeof json.median_price != 'undefined')
+			price = json.median_price;
+		}
+		PriceList[itemName] = price;
+		item.find(".rarity").html(price);
+		item.addClass("priced");
+	    }
+	});
     });
 }
 
 $(document).ready(function(){
-    UpdateItemColor();
-    $(document.body).bind("DOMSubtreeModified", function(){UpdateItemColor()});
+    UpdateItem();
+    $(document.body).bind("DOMSubtreeModified", function(){UpdateItem()});
 });
 
 $(".item" ).click(function() {
@@ -69,6 +112,9 @@ $(".item" ).click(function() {
     $("#modalImg").attr("src", newSrc);
     $("#modalPreview").fadeIn("fast");
 });
+
+
+
 
 
 $("#submenu>div").first()
