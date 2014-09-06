@@ -108,8 +108,6 @@ function isUpToDate(){
     var date = Date.now();
     var lastCheck = GM_getValue('lastCheck', 0);
 
-    console.log(date);
-    console.log(lastCheck);
     if (date - lastCheck > 3600 * 1000)
 	{
 	    GM_xmlhttpRequest({
@@ -119,8 +117,6 @@ function isUpToDate(){
 		onload: function(response) {
 		    var document = response.context
 		    var newVersion = response.responseText.match('^// @version\\s+(.*)$', "m");
-		    console.log(newVersion[1]);
-		    console.log(GM_info.script.version);
 		    if (newVersion[1] != GM_info.script.version)
 			{
 			    $(document).find("#AssistantMenu").append(
