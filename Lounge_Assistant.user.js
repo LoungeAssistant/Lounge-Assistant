@@ -2,7 +2,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.2.2
+// @version     1.2.3
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -120,10 +120,27 @@ function UpdateItem()
 	});
     });
 }
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function( mutation ) {
+        var newNodes = mutation.addedNodes;
+	if(newNodes !== null && newNodes.length > 0) {
+	    $.each(newNodes, function(idx, n){
+		if (n.nodeName != "#text"){
+		    UpdateItem();
+		    return false;
+		}
+	    });
+	}
+    });
+});
+var config = {
+    childList: true,
+    subtree : true,
+    characterData: true
+};
 
 $(document).ready(function(){
-    UpdateItem();
-    $(document.body).bind("DOMSubtreeModified", function(){UpdateItem()});
+    observer.observe(document.body, config);
 });
 
 $(".item" ).click(function() {
@@ -131,10 +148,6 @@ $(".item" ).click(function() {
     $("#modalImg").attr("src", newSrc);
     $("#modalPreview").fadeIn("fast");
 });
-
-
-
-
 
 $("#submenu>div").first()
     .append($('<div>').attr({'id' : 'AssistantMenu'})
