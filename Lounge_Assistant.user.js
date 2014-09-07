@@ -4,7 +4,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.2.7
+// @version     1.2.8
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -146,7 +146,7 @@ $(document).ready(function(){
 	childList: true,
 	subtree : true,
 	characterData: true
-    };);
+    });
 });
 
 $(".item" ).click(function() {
@@ -165,7 +165,7 @@ function addMenu(){
 		.append($("<a>").html("Contributors").attr({"class": "showContributor"}))
 		.append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
 		.append($("<div>").attr({"class" : "currencydiv"})
-			.append($("<span>").html("currency")).append($("<select>").attr({'class' : 'currencyList'}))
+			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'}))
 		       )
 	       );
 

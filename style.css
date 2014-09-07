@@ -383,14 +383,10 @@ th {
 }
 
 
-.currencydiv{
-    color : #FF8A00;
-}
 
 .currencyList{
     margin-left: 20px;
-    float : right;
-     background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%);
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%);
     border : none;
 }
 
@@ -399,3 +395,18 @@ th {
     color: rgb(187, 187, 187) !important;
 }
 
+.currencydiv{
+    padding: 8px 0px 8px 10px;
+    border: medium none;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #252525;
+    float: right !important;
+    width: 190px;
+    background: none repeat scroll 0% 0% #2d2d2d;
+    color: #FF8A00;
+    margin-top: 0 !important;
+}
+
+.currencydiv>span{
+    margin-left: 0 !important;
+}
