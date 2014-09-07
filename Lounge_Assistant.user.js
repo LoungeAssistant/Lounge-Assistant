@@ -4,7 +4,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.2.9
+// @version     1.3.0
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -156,7 +156,6 @@ $(document).ready(function(){
     });
 
     $(".currencyList").change(function(){
-	console.log("change");
 	GM_setValue("currency", currency[$('.currencyList').val()]);
 	PriceList = {};
 	$(".priced").removeClass("priced");
@@ -174,6 +173,7 @@ function addMenu(){
 		.append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
 		.append($("<a>").html("Contributors").attr({"class": "showContributor"}))
 		.append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
+		.append($("<a>").html("Force update").attr({"href" : "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js", "class" : "update"}))
 		.append($("<div>").attr({"class" : "currencydiv"})
 			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'}))
 		       )
@@ -226,12 +226,12 @@ function isUpToDate(){
 		    var newVersion = response.responseText.match('^// @version\\s+(.*)$', "m");
 		    if (newVersion[1] != GM_info.script.version)
 			{
-			    $(document).find("#AssistantMenu").append(
-				$("<a>").html(" ⚠ Install Latest Version ⚠ ").attr(
+			    $(document).find(".update")
+				.html(" ⚠ Install Latest Version ⚠ ").attr(
 				    {
 					"href": "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js",
 					"style" : "color:red"
-				    }));
+				    });
  			}
 		}
 	    });
@@ -281,3 +281,20 @@ function displayBotStatus(){
 addMenu();
 displayBotStatus();
 isUpToDate();
+
+
+
+$(".match").on('mouseenter', function (){
+    var matchurl = $(this).find("a").first().attr("href");
+    GM_xmlhttpRequest({
+	context: $(this),
+	method: "GET",
+	url: "http://csgolounge.com/" + matchurl,
+	onload: function(response) {
+            var elem = response.context;
+	    var bof = $($(response.responseText).find(".half")[1]).html();
+	    $(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html(bof);
+	    elem.unbind('mouseenter');
+	}
+    });
+});

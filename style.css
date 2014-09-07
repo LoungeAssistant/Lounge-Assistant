@@ -410,3 +410,11 @@ th {
 .currencydiv>span{
     margin-left: 0 !important;
 }
+
+.matchleft{
+    position: relative;
+}
+
+.bof{
+    color : #FF8A00;
+}
