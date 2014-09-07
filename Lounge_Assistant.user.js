@@ -4,7 +4,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.2.8
+// @version     1.2.9
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -123,6 +123,13 @@ function UpdateItem()
 	    }
 	});
     });
+
+    $(".item" ).click(function() {
+	var newSrc = $(this).find("img").attr("src").replace("99fx66f", "512fx388f");
+	$("#modalImg").attr("src", newSrc);
+	$("#modalPreview").fadeIn("fast");
+    });
+
 }
 
 
@@ -147,13 +154,16 @@ $(document).ready(function(){
 	subtree : true,
 	characterData: true
     });
+
+    $(".currencyList").change(function(){
+	console.log("change");
+	GM_setValue("currency", currency[$('.currencyList').val()]);
+	PriceList = {};
+	$(".priced").removeClass("priced");
+    });
+
 });
 
-$(".item" ).click(function() {
-    var newSrc = $(this).find("img").attr("src").replace("99fx66f", "512fx388f");
-    $("#modalImg").attr("src", newSrc);
-    $("#modalPreview").fadeIn("fast");
-});
 
 function addMenu(){
     $("#submenu>div").first()
@@ -245,11 +255,7 @@ function showContributor() {
 
 $(".showContributor").click(function(){showContributor()});
 
-$(".currencyList").change(function(){
-    GM_setValue("currency", currency[$('.currencyList').val()]);
-    PriceList = {};
-    $(".priced").removeClass("priced");
-});
+
 
 
 
