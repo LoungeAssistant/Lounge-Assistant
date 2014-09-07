@@ -2,7 +2,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.2.3
+// @version     1.2.4
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -120,7 +120,10 @@ function UpdateItem()
 	});
     });
 }
+
+
 var observer = new MutationObserver(function(mutations) {
+    console.log(mutations);
     mutations.forEach(function( mutation ) {
         var newNodes = mutation.addedNodes;
 	if(newNodes !== null && newNodes.length > 0) {
@@ -140,6 +143,7 @@ var config = {
 };
 
 $(document).ready(function(){
+    UpdateItem();
     observer.observe(document.body, config);
 });
 
