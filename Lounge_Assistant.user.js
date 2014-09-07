@@ -16,6 +16,8 @@
 // ==/UserScript==
 
 GM_addStyle(GM_getResourceText("css"));
+
+
 var currency = {
     "$"    : "1",
     "£"    : "2",
@@ -38,12 +40,6 @@ var currency = {
     "A$"   : "21",
     "NZ$"  : "22"
 }
-
-var PriceList = {};
-
-//######################################################################
-// ITEMS
-//######################################################################
 var colors = {
     "Base"          : "#B0C3D9",
     "Consumer"      : "#B0C3D9",
@@ -58,6 +54,12 @@ var colors = {
     "Extraordinary" : "#000000",
     "Contraband"    : "#E4AE39",
 };
+
+var PriceList = {};
+
+//######################################################################
+// ITEMS
+//######################################################################
 
 
 
@@ -137,15 +139,14 @@ var observer = new MutationObserver(function(mutations) {
 	}
     });
 });
-var config = {
-    childList: true,
-    subtree : true,
-    characterData: true
-};
 
 $(document).ready(function(){
     UpdateItem();
-    observer.observe(document.body, config);
+    observer.observe(document.body, {
+	childList: true,
+	subtree : true,
+	characterData: true
+    };);
 });
 
 $(".item" ).click(function() {
@@ -154,29 +155,29 @@ $(".item" ).click(function() {
     $("#modalPreview").fadeIn("fast");
 });
 
-$("#submenu>div").first()
-    .append($('<div>').attr({'id' : 'AssistantMenu'})
-	    .append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
-	    .append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
-	    .append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
-	    .append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
-	    .append($("<a>").html("Contributors").attr({"class": "showContributor"}))
-	    .append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
-	    .append($("<div>").attr({"class" : "currencydiv"})
-		    .append($("<span>").html("currency")).append($("<select>").attr({'class' : 'currencyList'}))
-		   )
-	   );
+function addMenu(){
+    $("#submenu>div").first()
+	.append($('<div>').attr({'id' : 'AssistantMenu'})
+		.append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
+		.append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
+		.append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
+		.append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
+		.append($("<a>").html("Contributors").attr({"class": "showContributor"}))
+		.append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
+		.append($("<div>").attr({"class" : "currencydiv"})
+			.append($("<span>").html("currency")).append($("<select>").attr({'class' : 'currencyList'}))
+		       )
+	       );
 
-$.each(currency, function (key, value){
-    var current = GM_getValue("currency", 0);
-    if (current == value)
-	$(".currencyList").append($("<option>").attr({'class' : 'currencyChoose', 'selected' : 'selected'}).html(key));
-    else
-	$(".currencyList").append($("<option>").attr({'class' : 'currencyChoose'}).html(key));
-});
+    $.each(currency, function (key, value){
+	var current = GM_getValue("currency", 0);
+	if (current == value)
+	    $(".currencyList").append($("<option>").attr({'class' : 'currencyChoose', 'selected' : 'selected'}).html(key));
+	else
+	    $(".currencyList").append($("<option>").attr({'class' : 'currencyChoose'}).html(key));
+    });
 
-
-
+}
 
 $("body").append(
     $("<div>").attr(
@@ -198,6 +199,7 @@ $("body").append(
 	)
     )
 );
+
 
 function isUpToDate(){
     var date = Date.now();
@@ -226,8 +228,6 @@ function isUpToDate(){
 	    GM_setValue('lastCheck', date);
 	}
 }
-
-isUpToDate();
 
 function showContributor() {
     $("#modalCnt").html('<img src="../img/load.gif" id="loading" style="margin: 0.75em 2%">');
@@ -261,9 +261,10 @@ function displayBotStatus(){
 	url: "http://csgolounge.com/status",
 	onload: function(response) {
             var document = response.context;
-	    var status = 'Bots status <span class="botstatus" style="color:#F00">💡 </span>';
+
+	    var status = 'Bot status <img class="botstatus" height="15px" src="http://loungeassistant.bi.tk/offline.svg">'
 	    if (response.responseText.match(/BOTS ARE ONLINE/))
-		status = 'Bots status <span class="botstatus" style="color:#76EE00">💡 </span> ';
+		status = status.replace("offline", "online");
 	    $($(document).find("#submenu>div>a")[5]).html(status);
 	}
     });
@@ -271,4 +272,6 @@ function displayBotStatus(){
 }
 
 
+addMenu();
 displayBotStatus();
+isUpToDate();
