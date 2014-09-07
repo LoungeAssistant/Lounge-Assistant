@@ -1,8 +1,10 @@
 // ==UserScript==
+// @author      @BitK_
+// @description csgolounge Enhancer
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.2.4
+// @version     1.2.6
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -248,3 +250,25 @@ $(".currencyList").change(function(){
     PriceList = {};
     $(".priced").removeClass("priced");
 });
+
+
+
+
+function displayBotStatus(){
+    GM_xmlhttpRequest({
+	context: document.body,
+	method: "GET",
+	url: "http://csgolounge.com/status",
+	onload: function(response) {
+            var document = response.context;
+	    var status = 'Bots status <span class="botstatus" style="color:#F00">💡 </span>';
+	    if (response.responseText.match(/BOTS ARE ONLINE/))
+		status = 'Bots status <span class="botstatus" style="color:#76EE00">💡 </span> ';
+	    $($(document).find("#submenu>div>a")[5]).html(status);
+	}
+    });
+
+}
+
+
+displayBotStatus();
