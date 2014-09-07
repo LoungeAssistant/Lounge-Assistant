@@ -123,7 +123,6 @@ function UpdateItem()
 
 
 var observer = new MutationObserver(function(mutations) {
-    console.log(mutations);
     mutations.forEach(function( mutation ) {
         var newNodes = mutation.addedNodes;
 	if(newNodes !== null && newNodes.length > 0) {
