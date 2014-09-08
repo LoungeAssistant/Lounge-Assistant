@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.3.9
+// @version     1.3.10
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.9
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.10
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -275,17 +275,17 @@ function showContributor() {
 
 
 function displayBotStatus(){
+    console.log(isLogged);
     GM_xmlhttpRequest({
-	context: document.body,
+	context: {'body' : document.body, 'logged' : isLogged},
 	method: "GET",
 	url: "http://csgolounge.com/status",
 	onload: function(response) {
-            var document = response.context;
-
+            var document = response.context.body;
 	    var status = 'Bots status <img class="botstatus" src="http://loungeassistant.bi.tk/offline.svg">'
 	    if (response.responseText.match(/BOTS ARE ONLINE/))
 		status = status.replace("offline", "online");
-	    $($(document).find("#submenu>div>a")[5]).html(status);
+	    $($(document).find("#submenu>div>a")[response.context.logged + 4]).html(status);
 	}
     });
 

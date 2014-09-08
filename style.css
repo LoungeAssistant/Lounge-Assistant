@@ -479,3 +479,23 @@ th {
     border: 1px solid #FFD700;
     box-shadow: none;
 }
+
+#replist>li>a{
+    color : #FF8A00;
+}
+
+#replist>li:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+
+}
+#replist>li:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+#bonuses>table>tbody>tr>td{
+    color: #000 !important;
+}
+
+.author>a{
+    color : #FF8A00 !important;
+}
