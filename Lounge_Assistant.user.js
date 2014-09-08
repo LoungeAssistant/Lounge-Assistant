@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.3.1
+// @version     1.3.2
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.1
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.2
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -61,10 +61,7 @@ var PriceList = {};
 // ITEMS
 //######################################################################
 
-
-
-function UpdateItem()
-{
+function UpdateItem(){
     $.each($(".item"), function (idx, data){
 	var rarityDiv = $(data).find(".rarity");
 	var rarity = rarityDiv.attr('class').replace("rarity ", "");
@@ -187,30 +184,33 @@ function addMenu(){
 	    $(".currencyList").append($("<option>").attr({'class' : 'currencyChoose'}).html(key));
     });
 
+
+
+    $(".showContributor").click(function(){showContributor()});
 }
 
-$("body").append(
-    $("<div>").attr(
-	{
-	    "id" : "modalAssistant"
-	}
-    ).append(
-	$("<a>").attr(
-	    {
-		"class" : "buttonright",
-		"onclick" : "$(this).parent().fadeOut('fast')"
-	    }
-	).html("  X ")
-    ).append(
+function addModal(){
+    $("body").append(
 	$("<div>").attr(
 	    {
-		"id" : "modalCnt"
+		"id" : "modalAssistant"
 	    }
+	).append(
+	    $("<a>").attr(
+		{
+		    "class" : "buttonright",
+		    "onclick" : "$(this).parent().fadeOut('fast')"
+		}
+	    ).html("  X ")
+	).append(
+	    $("<div>").attr(
+		{
+		    "id" : "modalCnt"
+		}
+	    )
 	)
-    )
-);
-
-
+    );
+};
 function isUpToDate(){
     var date = Date.now();
     var lastCheck = GM_getValue('lastCheck', 0);
@@ -253,12 +253,6 @@ function showContributor() {
     $("#modalAssistant").slideDown('fast');
 }
 
-$(".showContributor").click(function(){showContributor()});
-
-
-
-
-
 
 function displayBotStatus(){
     GM_xmlhttpRequest({
@@ -279,6 +273,7 @@ function displayBotStatus(){
 
 
 addMenu();
+addModal();
 displayBotStatus();
 isUpToDate();
 
@@ -286,15 +281,17 @@ isUpToDate();
 
 $(".match").on('mouseenter', function (){
     var matchurl = $(this).find("a").first().attr("href");
+    $($(this).find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html('-');
     GM_xmlhttpRequest({
 	context: $(this),
 	method: "GET",
 	url: "http://csgolounge.com/" + matchurl,
-	onload: function(response) {
-            var elem = response.context;
-	    var bof = $($(response.responseText).find(".half")[1]).html();
-	    $(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html(bof);
-	    elem.unbind('mouseenter');
-	}
-    });
+	    onload: function(response) {
+		var elem = response.context;
+
+    		var bof = $($(response.responseText).find(".half")[1]).html();
+		$(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html(bof);
+		elem.unbind('mouseenter');
+	    }
+	});
 });
