@@ -452,3 +452,8 @@ th {
 .botstatus{
     height: 11px;
 }
+
+.profilesmallheader> a{
+    color : #FF8A00;
+    text-shadow: #000 1px 1px 0px;
+}

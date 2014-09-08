@@ -313,13 +313,20 @@ function winLoss()
 }
 
 
+function addInventoryLink(){
+    var steamid = $(".profilesmallheader>a").attr("href").match(/\d+/)[0];
+    $(".profilesmallheader").append($("<a>").attr("href", "http://steamcommunity.com/profiles/" + steamid + "/inventory").text("Inventory"));
+
+}
+
+
+addInventoryLink();
 addMenu();
 addModal();
 displayBotStatus();
 isUpToDate();
 if (isLogged)
     winLoss();
-
 
 
 $(".match").on('mouseenter', function (){
@@ -338,3 +345,7 @@ $(".match").on('mouseenter', function (){
 	    }
 	});
 });
+
+
+
+
