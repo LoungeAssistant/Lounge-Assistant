@@ -35,6 +35,9 @@ html{
     border-radius : 0 !important;
     height : 10px !important;
 }
+.rarity:hover{
+    text-shadow : rgb(0, 0, 0) 2px 2px 0px !important;
+}
 
 .item{
     cursor: pointer;
@@ -68,7 +71,9 @@ html{
     padding: 2px;
 }
 body {
-    background: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL)}
+    background: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL);
+    
+}
 
 
 /*######################################################################*/
@@ -417,4 +422,33 @@ th {
 
 .bof{
     color : #FF8A00;
+}
+
+
+#modalMarket{
+    background-image: linear-gradient(#3F3F3F 0%, #262626 100%);
+    box-shadow: #000 0px 0px 4px 0px;
+    color: #C7C7C7;
+    padding:5px;
+    text-shadow: #000 1px 1px 0px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.notification{
+    color : black;
+    text-shadow: none;
+}
+
+
+.winning>b{
+    color: #76EE00;
+}
+.loosing>b{
+    color: #FF0000;
+}
+
+
+.botstatus{
+    height: 11px;
 }

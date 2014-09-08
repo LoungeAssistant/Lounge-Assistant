@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.3.2
+// @version     1.3.3
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.2
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.3
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -61,12 +61,35 @@ var PriceList = {};
 // ITEMS
 //######################################################################
 
+
+function getPrice(name, context, callback)
+{
+    var ctx = {"context" : context, "callback" : callback};
+    GM_xmlhttpRequest({
+	context: ctx,
+	method: "GET",
+	url: "http://steamcommunity.com/market/priceoverview/?country=US&currency="+GM_getValue("currency", 0) +"&appid=730&market_hash_name=" + name,
+	onload: function(response){
+	    var callback = response.context.callback;
+	    var context = response.context.context;
+	    var json = JSON.parse(response.responseText);
+	    var price = "Not found";
+	    if (json.success){
+		if (typeof json.lowest_price != 'undefined')
+		    price = json.lowest_price;
+		else if (typeof json.median_price != 'undefined')
+		    price = json.median_price;
+	    }
+	    callback(price, context);
+	}
+    });
+}
+
 function UpdateItem(){
     $.each($(".item"), function (idx, data){
 	var rarityDiv = $(data).find(".rarity");
 	var rarity = rarityDiv.attr('class').replace("rarity ", "");
 	var itemName = $(data).find(".smallimg").attr("alt");
-
 
 	if (itemName.match("(^.*Any .*$)|(^\\s+Knife\\s+$)"))
 	{
@@ -75,7 +98,6 @@ function UpdateItem(){
 	    });
 	    return 1;
 	}
-
 	if (rarity in colors) {
 	    $(data).find(".rarity").css({
 		"background-color" : colors[rarity],
@@ -97,36 +119,21 @@ function UpdateItem(){
 	}
 	$(this).find(".rarity").html("Loading ...");
 	var context = {'PriceList' : PriceList, 'item' : $(this), 'itemName' : itemName};
-	GM_xmlhttpRequest({
-	    context: context,
-	    method: "GET",
-	    url: "http://steamcommunity.com/market/priceoverview/?country=US&currency="+GM_getValue("currency", 0) +"&appid=730&market_hash_name=" + itemName,
-	    onload: function(response) {
-		var item = response.context.item;
-		var itemName = response.context.itemName;
-		var PriceList = response.context.PriceList;
-		var json = JSON.parse(response.responseText);
-		var price = 'Not found';
-
-		if (json.success){
-		    if (typeof json.lowest_price != 'undefined')
-			price = json.lowest_price;
-		    else if (typeof json.median_price != 'undefined')
-			price = json.median_price;
-		}
-		PriceList[itemName] = price;
-		item.find(".rarity").html(price);
-		item.addClass("priced");
-	    }
+	getPrice(itemName, context, function(price, context) {
+	    context.PriceList[context.itemName] = price;
+	    context.item.find(".rarity").html(price);
+	    context.item.addClass("priced");
 	});
     });
 
-    $(".item" ).click(function() {
-	var newSrc = $(this).find("img").attr("src").replace("99fx66f", "512fx388f");
+    $(".rarity" ).unbind("click");
+    $(".rarity" ).click(function() {
+	var newSrc = $(this).parent().find("img").attr("src").replace("99fx66f", "512fx388f");
+	var newLink = $(this).parent().find("a")[1].href;
 	$("#modalImg").attr("src", newSrc);
+	$("#modalMarket").attr("href", newLink);
 	$("#modalPreview").fadeIn("fast");
     });
-
 }
 
 
@@ -167,13 +174,12 @@ function addMenu(){
 		.append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
 		.append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
 		.append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
-		.append($("<a>").html("Github").attr({"href": "https://github.com/LoungeAssistant/Lounge-Assistant"}))
 		.append($("<a>").html("Contributors").attr({"class": "showContributor"}))
 		.append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
-		.append($("<a>").html("Force update").attr({"href" : "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js", "class" : "update"}))
 		.append($("<div>").attr({"class" : "currencydiv"})
-			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'}))
-		       )
+			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'})))
+		.append($("<a>").html("Loading ...").attr({"id" : "winloose"}))
+		.append($("<a>").html("Force update").attr({"href" : "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js", "class" : "update"}))
 	       );
 
     $.each(currency, function (key, value){
@@ -210,6 +216,8 @@ function addModal(){
 	    )
 	)
     );
+
+    $("#modalPreview").append($("<a>").attr({'id' : 'modalMarket', 'href' : '#'}).text('Market'));
 };
 function isUpToDate(){
     var date = Date.now();
@@ -262,7 +270,7 @@ function displayBotStatus(){
 	onload: function(response) {
             var document = response.context;
 
-	    var status = 'Bot status <img class="botstatus" height="15px" src="http://loungeassistant.bi.tk/offline.svg">'
+	    var status = 'Bots status <img class="botstatus" src="http://loungeassistant.bi.tk/offline.svg">'
 	    if (response.responseText.match(/BOTS ARE ONLINE/))
 		status = status.replace("offline", "online");
 	    $($(document).find("#submenu>div>a")[5]).html(status);
@@ -295,3 +303,26 @@ $(".match").on('mouseenter', function (){
 	    }
 	});
 });
+
+
+function winLoss()
+{
+    GM_xmlhttpRequest({
+	context: document.body,
+	method: "GET",
+	url: "http://csgolounge.com/ajax/betHistory.php",
+	    onload: function(response) {
+		var body = response.context;
+    		var won = $(response.responseText).find(".won").length;
+    		var lost = $(response.responseText).find(".lost").length;
+		var total = won + lost;
+		var winPercent = Math.floor(won / total * 100);
+		var winclass = "";
+		if (winPercent < 50) winclass = "loosing";
+		else if (winPercent > 50) winclass = "winning";
+		$(body).find("#winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
+	    }
+	});
+}
+
+winLoss();
