@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.3.7
+// @version     1.3.8
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.7
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.8
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
