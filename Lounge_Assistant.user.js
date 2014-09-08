@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.3.8
+// @version     1.3.9
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.8
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.9
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -326,13 +326,12 @@ function winLoss()
 
 
 function addInventoryLink(){
-    if ($(".profilesmallheader>a").length < 1 && isLogged)
+    if ($(".profilesmallheader>a").length < 1 || !isLogged)
 	return;
     var steamid = $(".profilesmallheader>a").attr("href").match(/\d+/)[0];
     $(".profilesmallheader").append($("<a>").attr("href", "http://steamcommunity.com/profiles/" + steamid + "/inventory").text("Inventory"));
 
 }
-
 
 
 addMenu();
