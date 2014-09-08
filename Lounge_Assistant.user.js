@@ -4,20 +4,20 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.3.3
+// @version     1.3.4
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.3
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.4
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
 
 GM_addStyle(GM_getResourceText("css"));
 
-
+var isLogged = $("#logout").length;
 var currency = {
     "$"    : "1",
     "£"    : "2",
@@ -178,7 +178,7 @@ function addMenu(){
 		.append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
 		.append($("<div>").attr({"class" : "currencydiv"})
 			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'})))
-		.append($("<a>").html("Loading ...").attr({"id" : "winloose"}))
+		.append($("<a>").html("Won : Not logged in").attr({"id" : "winloose"}))
 		.append($("<a>").html("Force update").attr({"href" : "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js", "class" : "update"}))
 	       );
 
@@ -278,12 +278,47 @@ function displayBotStatus(){
     });
 
 }
+function winLoss()
+{
+    $("#winloose").text("Loading ...");
+    GM_xmlhttpRequest({
+	context: document.body,
+	method: "GET",
+	url: "http://csgolounge.com/ajax/betHistory.php",
+	    onload: function(response) {
+		var body = response.context;
+    		var won = $(response.responseText).find(".won").length;
+    		var lost = $(response.responseText).find(".lost").length;
+		var total = won + lost;
+		var winPercent = Math.floor(won / total * 100);
+		var winclass = "";
+		if (winPercent < 50) winclass = "loosing";
+		else if (winPercent > 50) winclass = "winning";
+		$(body).find("#winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
+	    }
+	});
+
+    $("#winloose").click(function(){
+	GM_xmlhttpRequest({
+	    context: $(document.body),
+	    method: "GET",
+	    url: "http://csgolounge.com/ajax/betHistory.php",
+	    onload: function(response) {
+		var elem = response.context;
+		elem.find("#main").html($("<section>").attr("class", "box").html(response.responseText));
+	    }
+	});
+    })
+
+}
 
 
 addMenu();
 addModal();
 displayBotStatus();
 isUpToDate();
+if (isLogged)
+    winLoss();
 
 
 
@@ -303,26 +338,3 @@ $(".match").on('mouseenter', function (){
 	    }
 	});
 });
-
-
-function winLoss()
-{
-    GM_xmlhttpRequest({
-	context: document.body,
-	method: "GET",
-	url: "http://csgolounge.com/ajax/betHistory.php",
-	    onload: function(response) {
-		var body = response.context;
-    		var won = $(response.responseText).find(".won").length;
-    		var lost = $(response.responseText).find(".lost").length;
-		var total = won + lost;
-		var winPercent = Math.floor(won / total * 100);
-		var winclass = "";
-		if (winPercent < 50) winclass = "loosing";
-		else if (winPercent > 50) winclass = "winning";
-		$(body).find("#winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
-	    }
-	});
-}
-
-winLoss();
