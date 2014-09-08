@@ -126,6 +126,13 @@ function UpdateItem(){
 	});
     });
 
+    observer.disconnect();
+    $(".item.Star:not(:has(>.clreff))").prepend($("<div>").attr({
+    	"class": "clreff",
+    	"style" : "background-color: #8650AC"
+    	}).text("★"));
+    startObserver();
+
     $(".rarity" ).unbind("click");
     $(".rarity" ).click(function() {
 	var newSrc = $(this).parent().find("img").attr("src").replace("99fx66f", "512fx388f");
@@ -151,14 +158,19 @@ var observer = new MutationObserver(function(mutations) {
     });
 });
 
-$(document).ready(function(){
-    UpdateItem();
+function startObserver()
+{
     observer.observe(document.body, {
 	childList: true,
 	subtree : true,
 	characterData: true
     });
+}
 
+$(document).ready(function(){
+    UpdateItem();
+
+    startObserver();
     $(".currencyList").change(function(){
 	GM_setValue("currency", currency[$('.currencyList').val()]);
 	PriceList = {};

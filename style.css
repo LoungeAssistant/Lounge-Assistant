@@ -40,6 +40,7 @@ html{
 }
 
 .item{
+    margin: 2px;
     cursor: pointer;
 }
 
@@ -67,7 +68,7 @@ html{
     background-color: rgba(35, 35, 35, 0.7);
     border: solid 1px black;
     border-radius: 0;
-    width: 48%;
+    width: 47%;
     padding: 2px;
 }
 body {
@@ -461,4 +462,20 @@ th {
 .boxhistory
 {
     padding:10px;
+}
+
+.Star{
+    border: 1px solid  #8650AC;
+    box-shadow: none;
+}
+
+.StatTrak{
+    border: 1px solid #CF6A32;
+    box-shadow: none;
+}
+
+
+.Souvenir{
+    border: 1px solid #FFD700;
+    box-shadow: none;
 }
