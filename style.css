@@ -71,9 +71,11 @@ html{
     width: 47%;
     padding: 2px;
 }
+
 body {
-    background: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL);
-    
+    background-color: #000 !important;
+    background: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL) no-repeat;
+    background-size: contain;
 }
 
 
@@ -498,4 +500,14 @@ th {
 
 .author>a{
     color : #FF8A00 !important;
+}
+
+
+#submitmsg{
+    margin: 5px;
+    color : #FF8A00;
+}
+
+.autoplace{
+    margin: 5px;
 }

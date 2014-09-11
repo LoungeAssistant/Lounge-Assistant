@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.3.10
+// @version     1.4
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.3.10
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.4
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -324,6 +324,37 @@ function winLoss()
 
 }
 
+function replaceAlert() {
+    var script = document.createElement('script');
+    script.setAttribute("type", "application/javascript");
+    script.textContent = 'function alert(msg){$("#submitmsg").html(msg).show().delay(5000).fadeOut(4000);}';
+    document.body.appendChild(script);
+}
+
+function trySubmit()
+{
+    replaceAlert();
+    if ($("#autoplace").is(":checked"))
+	{
+	    location.assign("javascript:" + $("#placebut").attr("onclick").split(";")[1]);
+	    window.setTimeout(trySubmit, 10000);
+	}
+}
+
+function addAutoSubmit(){
+    var button = $("#placebut");
+    if (button.length)
+	{
+	    button.after(
+		$("<label>").attr("class", "autoplace").text("Auto Submit ")
+		    .append($("<input>").attr({"type" : "checkbox", "id" : "autoplace"}))
+		    .append($("<div>").attr("id", "submitmsg")));
+
+	    $("#autoplace").on("change", function(){
+		trySubmit();
+	    });
+	}
+}
 
 function addInventoryLink(){
     if ($(".profilesmallheader>a").length < 1 || !isLogged)
@@ -339,6 +370,7 @@ addInventoryLink();
 addModal();
 displayBotStatus();
 isUpToDate();
+addAutoSubmit();
 if (isLogged)
     winLoss();
 
