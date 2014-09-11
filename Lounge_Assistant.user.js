@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.4.1
+// @version     1.4.2
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.4.1
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.4.2
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -183,7 +183,7 @@ $(document).ready(function(){
 function addMenu(){
     $("#submenu>div").first()
 	.append($('<div>').attr({'id' : 'AssistantMenu'})
-		.append($('<a>').attr({'class' : 'menuAssistant'}).html("Lounge Assistant"))
+		.append($('<a>').attr({'href' : 'https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js', 'class' : 'menuAssistant update'}).html("<b>Lounge Assistant</b> " + GM_info.script.version))
 		.append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
 		.append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
 		.append($("<a>").html("Contributors").attr({"class": "showContributor"}))
@@ -191,7 +191,6 @@ function addMenu(){
 		.append($("<div>").attr({"class" : "currencydiv"})
 			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'})))
 		.append($("<a>").html("Won : Not logged in").attr({"id" : "winloose"}))
-		.append($("<a>").html("Force update").attr({"href" : "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js", "class" : "update"}))
 	       );
 
     $.each(currency, function (key, value){
@@ -303,6 +302,8 @@ function winLoss()
 		var total = won + lost;
 		var winPercent = Math.floor(won / total * 100);
 		var winclass = "";
+		if (total == 0)
+		    $(body).find("#winloose").attr('class', winclass).html("Won : no bet found");
 		if (winPercent < 50) winclass = "loosing";
 		else if (winPercent > 50) winclass = "winning";
 		$(body).find("#winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
@@ -391,7 +392,4 @@ $(".match").on('mouseenter', function (){
 	    }
 	});
 });
-
-
-
 
