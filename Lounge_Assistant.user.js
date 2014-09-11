@@ -68,7 +68,7 @@ function getPrice(name, context, callback)
     GM_xmlhttpRequest({
 	context: ctx,
 	method: "GET",
-	url: "http://steamcommunity.com/market/priceoverview/?country=US&currency="+GM_getValue("currency", 0) +"&appid=730&market_hash_name=" + name,
+	url: "http://steamcommunity.com/market/priceoverview/?currency="+GM_getValue("currency", 0) +"&appid=730&market_hash_name=" + name,
 	onload: function(response){
 	    var callback = response.context.callback;
 	    var context = response.context.context;
