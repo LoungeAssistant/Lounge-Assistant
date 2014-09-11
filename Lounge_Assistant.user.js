@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.5
+// @version     1.5.1
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.5
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.5.1
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -314,34 +314,24 @@ function displayBotStatus(){
 function winLoss()
 {
     $("#winloose").text("Loading ...");
-    GM_xmlhttpRequest({
-	context: document.body,
-	method: "GET",
-	url: "http://csgolounge.com/ajax/betHistory.php",
-	    onload: function(response) {
-		var body = response.context;
-    		var won = $(response.responseText).find(".won").length;
-    		var lost = $(response.responseText).find(".lost").length;
-		var total = won + lost;
-		var winPercent = Math.floor(won / total * 100);
-		var winclass = "";
-		if (total == 0)
-		    $(body).find("#winloose").attr('class', winclass).html("Won : no bet found");
-		if (winPercent < 50) winclass = "loosing";
-		else if (winPercent > 50) winclass = "winning";
-		$(body).find("#winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
-	    }
-	});
+    $.get("/ajax/betHistory.php", function(data){
+    	var won = $(data).find(".won").length;
+    	var lost = $(data).find(".lost").length;
+	var total = won + lost;
+	var winPercent = Math.floor(won / total * 100);
+	var winclass = "";
+	if (total == 0){
+	    $("#winloose").attr('class', winclass).html("Won : no bet found");
+	    return;
+	}
+	if (winPercent < 50) winclass = "loosing";
+	else if (winPercent > 50) winclass = "winning";
+	$("#winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
+    });
 
     $("#winloose").click(function(){
-	GM_xmlhttpRequest({
-	    context: $(document.body),
-	    method: "GET",
-	    url: "http://csgolounge.com/ajax/betHistory.php",
-	    onload: function(response) {
-		var elem = response.context;
-		elem.find("#main").html($("<section>").attr("class", "box boxhistory").html(response.responseText));
-	    }
+	$.get("/ajax/betHistory.php", function(data){
+	    $("#main").html($("<section>").attr("class", "box boxhistory").html(data));
 	});
     })
 
@@ -402,6 +392,7 @@ if (isLogged)
 $(".match").on('mouseenter', function (){
     var matchurl = $(this).find("a").first().attr("href");
     $($(this).find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html('-');
+
     GM_xmlhttpRequest({
 	context: $(this),
 	method: "GET",
