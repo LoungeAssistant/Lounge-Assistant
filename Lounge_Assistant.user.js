@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.4.2
+// @version     1.5
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css#1.4.2
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.5
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -179,6 +179,29 @@ $(document).ready(function(){
 
 });
 
+function setBackground()
+{
+    var background = GM_getValue("background", "");
+    if (background != "")
+	$("body").css("background-image", "url(" + background + ") ");
+    else
+	$("body").css("background-image", "url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL)");
+}
+
+function showChangeBackground()
+{
+    $("#modalCnt").html('<h3>Change Background</h3><br><input class="backgroundurl" type="text" placeholder="url"><br><button class="changebackgroundbutton buttonright">Ok</button><button class="buttonright resetbackgroundbutton">Reset</button>');
+    $(".changebackgroundbutton").click(function(){
+	GM_setValue("background", $(".backgroundurl").val());
+	setBackground();
+    });
+    $(".resetbackgroundbutton").click(function(){
+	GM_setValue("background", "");
+	setBackground();
+    });
+    $("#modalAssistant").slideDown('fast');
+}
+
 
 function addMenu(){
     $("#submenu>div").first()
@@ -191,6 +214,7 @@ function addMenu(){
 		.append($("<div>").attr({"class" : "currencydiv"})
 			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'})))
 		.append($("<a>").html("Won : Not logged in").attr({"id" : "winloose"}))
+		.append($("<a>").html("Change Background").attr({"class": "changeBackgound"}))
 	       );
 
     $.each(currency, function (key, value){
@@ -201,9 +225,8 @@ function addMenu(){
 	    $(".currencyList").append($("<option>").attr({'class' : 'currencyChoose'}).html(key));
     });
 
-
-
     $(".showContributor").click(function(){showContributor()});
+    $(".changeBackgound").click(function(){showChangeBackground()});
 }
 
 function addModal(){
@@ -364,7 +387,7 @@ function addInventoryLink(){
 
 }
 
-
+setBackground();
 addMenu();
 addInventoryLink();
 addModal();
