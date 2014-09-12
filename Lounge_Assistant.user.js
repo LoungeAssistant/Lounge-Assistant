@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.5.1
+// @version     1.5.2
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.5.1
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.5.2
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -68,7 +68,7 @@ function getPrice(name, context, callback)
     GM_xmlhttpRequest({
 	context: ctx,
 	method: "GET",
-	url: "http://steamcommunity.com/market/priceoverview/?currency="+GM_getValue("currency", 0) +"&appid=730&market_hash_name=" + name,
+	url: "http://steamcommunity.com/market/priceoverview/?currency="+ GM_getValue("currency", 0) +"&appid=730&market_hash_name=" + name,
 	onload: function(response){
 	    var callback = response.context.callback;
 	    var context = response.context.context;
@@ -297,20 +297,14 @@ function showContributor() {
 
 
 function displayBotStatus(){
-    GM_xmlhttpRequest({
-	context: {'body' : document.body, 'logged' : isLogged},
-	method: "GET",
-	url: "http://csgolounge.com/status",
-	onload: function(response) {
-            var document = response.context.body;
-	    var status = 'Bots status <img class="botstatus" src="http://loungeassistant.bi.tk/offline.svg">'
-	    if (response.responseText.match(/BOTS ARE ONLINE/))
-		status = status.replace("offline", "online");
-	    $($(document).find("#submenu>div>a")[response.context.logged + 4]).html(status);
-	}
+    $.get("/status", function(data){
+	var status = 'Bots status <img class="botstatus" src="http://loungeassistant.bi.tk/offline.svg">'
+	if (data.match(/BOTS ARE ONLINE/))
+	    status = status.replace("offline", "online");
+	$($("#submenu>div>a")[isLogged + 4]).html(status);
     });
-
 }
+
 function winLoss()
 {
     $("#winloose").text("Loading ...");
@@ -390,20 +384,15 @@ if (isLogged)
 
 
 $(".match").on('mouseenter', function (){
-    var matchurl = $(this).find("a").first().attr("href");
-    $($(this).find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html('-');
+    var elem = $(this);
+    var matchurl = elem.find("a").first().attr("href");
+    $(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html('-');
 
-    GM_xmlhttpRequest({
-	context: $(this),
-	method: "GET",
-	url: "http://csgolounge.com/" + matchurl,
-	    onload: function(response) {
-		var elem = response.context;
+    $.get(matchurl, function(data){
+    	var bof = $($(data).find(".half")[1]).html();
+	$(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html(bof);
+	elem.unbind('mouseenter');
+    });
 
-    		var bof = $($(response.responseText).find(".half")[1]).html();
-		$(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html(bof);
-		elem.unbind('mouseenter');
-	    }
-	});
 });
 
