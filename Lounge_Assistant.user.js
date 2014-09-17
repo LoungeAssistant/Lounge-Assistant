@@ -4,19 +4,20 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.5.2
+// @version     1.6
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.5.2
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
 
 GM_addStyle(GM_getResourceText("css"));
 
+var bumps_url = [];
 var isLogged = $("#logout").length;
 var currency = {
     "$"    : "1",
@@ -171,11 +172,6 @@ $(document).ready(function(){
     UpdateItem();
 
     startObserver();
-    $(".currencyList").change(function(){
-	GM_setValue("currency", currency[$('.currencyList').val()]);
-	PriceList = {};
-	$(".priced").removeClass("priced");
-    });
 
 });
 
@@ -188,45 +184,25 @@ function setBackground()
 	$("body").css("background-image", "url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL)");
 }
 
-function showChangeBackground()
-{
-    $("#modalCnt").html('<h3>Change Background</h3><br><input class="backgroundurl" type="text" placeholder="url"><br><button class="changebackgroundbutton buttonright">Ok</button><button class="buttonright resetbackgroundbutton">Reset</button>');
-    $(".changebackgroundbutton").click(function(){
-	GM_setValue("background", $(".backgroundurl").val());
-	setBackground();
-    });
-    $(".resetbackgroundbutton").click(function(){
-	GM_setValue("background", "");
-	setBackground();
-    });
-    $("#modalAssistant").slideDown('fast');
-}
-
 
 function addMenu(){
     $("#submenu>div").first()
-	.append($('<div>').attr({'id' : 'AssistantMenu'})
+	.append($('<div>').attr({'id' : 'la-menu'})
 		.append($('<a>').attr({'href' : 'https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js', 'class' : 'menuAssistant update'}).html("<b>Lounge Assistant</b> " + GM_info.script.version))
 		.append($("<a>").html("Website").attr({"href": "http://loungeassistant.github.io/Lounge-Assistant/"}))
 		.append($("<a>").html("Group").attr({"href": "http://steamcommunity.com/groups/LoungeAssistant"}))
 		.append($("<a>").html("Contributors").attr({"class": "showContributor"}))
 		.append($("<a>").html("Donate to LoungeAssistant ♥").attr({"href" : "http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn"}))
-		.append($("<div>").attr({"class" : "currencydiv"})
-			.append($("<span>").html("Currency")).append($("<select>").attr({'class' : 'currencyList'})))
-		.append($("<a>").html("Won : Not logged in").attr({"id" : "winloose"}))
-		.append($("<a>").html("Change Background").attr({"class": "changeBackgound"}))
+		.append($("<a>").html("Trades : Not logged in").attr({"id" : "la-trade", "title" : "Bump all"}))
+		.append($("<a>").html("Won : Not logged in").attr("id", "la-winloose"))
+		.append($("<a>").html("Options").attr({"class": "la-option"}))
 	       );
 
-    $.each(currency, function (key, value){
-	var current = GM_getValue("currency", 0);
-	if (current == value)
-	    $(".currencyList").append($("<option>").attr({'class' : 'currencyChoose', 'selected' : 'selected'}).html(key));
-	else
-	    $(".currencyList").append($("<option>").attr({'class' : 'currencyChoose'}).html(key));
-    });
 
     $(".showContributor").click(function(){showContributor()});
-    $(".changeBackgound").click(function(){showChangeBackground()});
+    $(".la-option").click(function(){
+	$("#la-modal-option").slideDown('fast');
+    });
 }
 
 function addModal(){
@@ -239,7 +215,7 @@ function addModal(){
 	    $("<a>").attr(
 		{
 		    "class" : "buttonright",
-		    "onclick" : "$(this).parent().fadeOut('fast')"
+		    "onclick" : "console.log($(this).parent());$(this).parent().fadeOut('fast')"
 		}
 	    ).html("  X ")
 	).append(
@@ -250,6 +226,68 @@ function addModal(){
 	    )
 	)
     );
+    $("body").append(
+	$("<div>").attr(
+	    {
+		"id" : "la-modal-option"
+	    }
+	).append(
+	    $("<a>").attr(
+		{
+		    "class" : "buttonright",
+		    "onclick" : "$(this).parent().fadeOut('fast')"
+		}
+	    ).html("  X ")
+	).append(
+	    $("<div>").attr(
+		{
+		    "id" : "la-modal-option-cnt"
+		}
+	    ).append(
+		$("<h2>").text("Options")
+	    ).append(
+		$("<div>").attr("class", "la-option-entry").append(
+		    $("<label>").text("Background :")
+		).append(
+		    $("<input>").attr(
+			{"class" : "la-option-background",
+			"placeholder" : "url",
+			 "value" : GM_getValue("background", "")
+			})
+		)
+	    ).append(
+		$("<div>").attr("class", "la-option-entry").append(
+		    $("<label>").text("Currency :")
+		).append(
+		    $("<select>").attr("class", "la-currency-list")
+		)
+	    ).append(
+		$("<div>").attr("class", "la-option-entry").append(
+		    $("<label>").text("Version :")
+		).append(
+		    $("<a>").attr("href", "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js").text(GM_info.script.version)
+		)
+	    ).append(
+		$("<button>").text("OK").attr("class", "buttonright la-option-validate")
+	    )
+	)
+    );
+
+
+    $.each(currency, function (key, value){
+	var current = GM_getValue("currency", 0);
+	$(".la-currency-list").append($("<option>").attr(current == value ? {'selected' : 'selected'} : {}).html(key));
+    });
+
+    $(".la-option-validate").click(function(){
+	GM_setValue("currency", currency[$('.la-currency-list').val()]);
+
+	PriceList = {};
+	$(".priced").removeClass("priced");
+	GM_setValue("background", $(".la-option-background").val());
+	setBackground();
+	$("#la-modal-option").fadeOut('fast');
+    });
 
     $("#modalPreview").append($("<a>").attr({'id' : 'modalMarket', 'href' : '#'}).text('Market'));
 };
@@ -298,7 +336,7 @@ function showContributor() {
 
 function displayBotStatus(){
     $.get("/status", function(data){
-	var status = 'Bots status <img class="botstatus" src="http://loungeassistant.bi.tk/offline.svg">'
+	var status = 'Bots status <img class="botstatus" src="http://loungeassistant.bi.tk/offline.svg?'+GM_info.script.version+'">'; // Callback for stat only
 	if (data.match(/BOTS ARE ONLINE/))
 	    status = status.replace("offline", "online");
 	$($("#submenu>div>a")[isLogged + 4]).html(status);
@@ -307,7 +345,7 @@ function displayBotStatus(){
 
 function winLoss()
 {
-    $("#winloose").text("Loading ...");
+    $("#la-winloose").text("Loading ...");
     $.get("/ajax/betHistory.php", function(data){
     	var won = $(data).find(".won").length;
     	var lost = $(data).find(".lost").length;
@@ -315,20 +353,52 @@ function winLoss()
 	var winPercent = Math.floor(won / total * 100);
 	var winclass = "";
 	if (total == 0){
-	    $("#winloose").attr('class', winclass).html("Won : no bet found");
+	    $("#la-winloose").attr('class', winclass).html("Won : no bet found");
 	    return;
 	}
 	if (winPercent < 50) winclass = "loosing";
 	else if (winPercent > 50) winclass = "winning";
-	$("#winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
+	$("#la-winloose").attr('class', winclass).html("Won : <b>" + winPercent+ "%</b> ("+ won+" / "+ total+")");
     });
 
-    $("#winloose").click(function(){
+    $("#la-winloose").click(function(){
 	$.get("/ajax/betHistory.php", function(data){
 	    $("#main").html($("<section>").attr("class", "box boxhistory").html(data));
 	});
     })
 
+}
+
+
+function updateTrade()
+{
+    $("#la-trade").text("Loading ...");
+
+    $.get("/mytrades", function(data){
+	var tradesnb = $(data).find(".tradeheader").length;
+
+	$.each($(data).find(".tradeheader>.buttonright"), function (idx, item){
+	    bumps_url.push($(item).attr("onclick").match(/\d+/)[0]);
+	});
+	$("#la-trade").text(tradesnb + " trade" + (tradesnb > 1 ? 's' : '') + '  / Bump ' + bumps_url.length);
+    });
+}
+
+function trade()
+{
+    updateTrade();
+
+    $("#la-trade").click(function(){
+	$.each(bumps_url, function(idx, trade){
+	    $.ajax({
+	        type: "POST",
+		url: "ajax/bumpTrade.php",
+		data: "trade=" + trade
+	    });
+	});
+
+	updateTrade();
+    });
 }
 
 function replaceAlert() {
@@ -372,15 +442,17 @@ function addInventoryLink(){
 }
 
 setBackground();
+addModal();
 addMenu();
 addInventoryLink();
-addModal();
 displayBotStatus();
 isUpToDate();
 addAutoSubmit();
 if (isLogged)
-    winLoss();
-
+    {
+	winLoss();
+	trade();
+    }
 
 
 $(".match").on('mouseenter', function (){
@@ -395,4 +467,3 @@ $(".match").on('mouseenter', function (){
     });
 
 });
-

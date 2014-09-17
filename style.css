@@ -510,3 +510,48 @@ th {
 .autoplace{
     margin: 5px;
 }
+
+#modalCntmodal {
+    color : black;
+}
+
+
+
+#la-modal-option {
+    z-index: 1;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    border-radius: 10px;
+    box-shadow: #000 1px 1px 3px 1px;
+    background-color: #555;
+}
+
+#la-modal-option-cnt{
+    padding: 50px;
+}
+
+
+.la-option-entry{
+    width: 400px;
+    height: 40px;
+}
+
+#la-modal-option-cnt>h2{
+    color: #FF8a00;
+    text-shadow: rgb(0, 0, 0) 0px 0px 2px;
+    margin-bottom: 10px;
+}
+
+.la-option-entry>label{
+    width: 150px;
+    display : inline-block;
+    color: black;
+    font-weight: bold;
+}
+
+
+.la-option-entry>a{
+    color: #FF8a00;
+}
