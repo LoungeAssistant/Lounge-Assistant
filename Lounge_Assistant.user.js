@@ -4,7 +4,7 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.6
+// @version     1.6.1
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
@@ -170,10 +170,9 @@ function startObserver()
 
 $(document).ready(function(){
     UpdateItem();
-
     startObserver();
-
 });
+
 
 function setBackground()
 {
@@ -183,7 +182,6 @@ function setBackground()
     else
 	$("body").css("background-image", "url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL)");
 }
-
 
 function addMenu(){
     $("#submenu>div").first()
@@ -291,6 +289,7 @@ function addModal(){
 
     $("#modalPreview").append($("<a>").attr({'id' : 'modalMarket', 'href' : '#'}).text('Market'));
 };
+
 function isUpToDate(){
     var date = Date.now();
     var lastCheck = GM_getValue('lastCheck', 0);
@@ -336,11 +335,29 @@ function showContributor() {
 
 function displayBotStatus(){
     $.get("/status", function(data){
-	var status = 'Bots status <img class="botstatus" src="http://loungeassistant.bi.tk/offline.svg?'+GM_info.script.version+'">'; // Callback for stat only
-	if (data.match(/BOTS ARE ONLINE/))
-	    status = status.replace("offline", "online");
-	$($("#submenu>div>a")[isLogged + 4]).html(status);
+	var status = $(data).find("tr").eq(1).find("td");
+	var msg = "Bots status "
+	var src = "";
+
+	$.each(status, function(idx, status){
+	    switch ($(status).attr("bgcolor"))
+	    {
+	    case '#76EE00':
+		src = "http://loungeassistant.bi.tk/online.svg?" + GM_info.script.version;
+		break;
+	    case '#FFA500':
+		src = "http://loungeassistant.bi.tk/unstable.svg?" + GM_info.script.version;
+		break;
+	    case '#FF0000':
+	    default:
+		src = "http://loungeassistant.bi.tk/offline.svg?" + GM_info.script.version;
+		break;
+	    }
+	    msg += '<abbr class="la-bot-status" title="'+ $(status).text()+'"><img class="botstatus" src="' + src + '"></a>';
+	});
+	$("#submenu>div>a").eq(isLogged + 4).html(msg);
     });
+
 }
 
 function winLoss()

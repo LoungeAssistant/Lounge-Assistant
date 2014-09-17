@@ -555,3 +555,7 @@ th {
 .la-option-entry>a{
     color: #FF8a00;
 }
+
+.la-bot-status{
+    border-bottom-width: 0;
+}
