@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.6.2
+// @version     1.6.3
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6.2
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6.3
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -408,7 +408,15 @@ function updateTrade()
 	    bumps_url.push($(item).attr("onclick").match(/\d+/)[0]);
 	});
 	$("#la-trade").text(tradesnb + " trade" + (tradesnb > 1 ? 's' : '') + '  / Bump ' + bumps_url.length);
+
+	var newtrade = 0;
+	$.each($(data).find(".notification"), function(idx, data){
+	    newtrade += parseInt($(data).text().match(/^\d+/)[0]);
+	});
+	$("#menu>li").eq(1).append($("<div>").attr({'class': 'notification'}).text(newtrade));
     });
+
+
 }
 
 function trade()
