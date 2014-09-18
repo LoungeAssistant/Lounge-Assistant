@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.6.4
+// @version     1.6.5
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6.4
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6.5
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -213,7 +213,7 @@ function addModal(){
 	    $("<a>").attr(
 		{
 		    "class" : "buttonright",
-		    "onclick" : "console.log($(this).parent());$(this).parent().fadeOut('fast')"
+		    "onclick" : "$(this).parent().fadeOut('fast')"
 		}
 	    ).html("  X ")
 	).append(
@@ -433,6 +433,7 @@ function trade()
 	    });
 	});
 
+	bumps_url = [];
 	updateTrade();
     });
 }
