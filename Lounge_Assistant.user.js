@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.6.1
+// @version     1.6.2
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6.2
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -323,7 +323,7 @@ function showContributor() {
     GM_xmlhttpRequest({
 	context: document.body,
 	method: "GET",
-	url: "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/contributors.html",
+	url: "http://loungeassistant.bi.tk/contributors.html",
 	onload: function(response) {
             var document = response.context
 	    $(document).find("#modalCnt").html(response.responseText);
@@ -360,6 +360,19 @@ function displayBotStatus(){
 
 }
 
+function displayBetHistory(clearMain)
+{
+    clearMain = typeof clearMain !== 'undefined' ? clearMain : false;
+
+    $.get("/ajax/betHistory.php", function(data){
+	if (clearMain)
+	    $("#main").html($("<section>").attr("class", "box boxhistory").html(data));
+	else
+	    $("#main").append($("<section>").attr("class", "box boxhistory").html(data));
+
+    });
+}
+
 function winLoss()
 {
     $("#la-winloose").text("Loading ...");
@@ -379,11 +392,8 @@ function winLoss()
     });
 
     $("#la-winloose").click(function(){
-	$.get("/ajax/betHistory.php", function(data){
-	    $("#main").html($("<section>").attr("class", "box boxhistory").html(data));
-	});
+	displayBetHistory(true);
     })
-
 }
 
 
@@ -471,6 +481,8 @@ if (isLogged)
 	trade();
     }
 
+if (window.location.href.match(/mybets$/))
+    displayBetHistory();
 
 $(".match").on('mouseenter', function (){
     var elem = $(this);
