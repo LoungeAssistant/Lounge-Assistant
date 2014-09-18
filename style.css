@@ -257,12 +257,10 @@ tr:nth-child(even) {
 
 
 .match{
-    background-color: rgba(15, 15, 14, 0.36);
     border: solid 1px black;
     box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
     color: rgb(187, 187, 187) !important;
 }
-
 
 .match>.half>a>span{
     color: rgb(255, 138, 0);
@@ -422,8 +420,8 @@ th {
     position: relative;
 }
 
-.bof{
-    color : #FF8A00;
+.la-bof{
+    color : #00000;
 }
 
 
@@ -558,4 +556,41 @@ th {
 
 .la-bot-status{
     border-bottom-width: 0;
+}
+
+
+.la-minimize-match{
+    color: #FF8A00;
+    text-shadow: rgb(0, 0, 0) 0px 0px 2px;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.la-match-info{
+    margin-top:5px;
+    margin-left: 24px;
+}
+
+.la-match-info>b{
+    color: #FF8A00;
+    font-size : 16px;
+}
+
+.la-match-info>i{
+    color: grey;
+    font-size : 14px;
+}
+
+
+.la-vs{
+    color: lightgrey;
+    margin-right:10px;
+    margin-left: 10px;
+}
+
+
+.matchmain{
+    margin-bottom: 2px;
 }

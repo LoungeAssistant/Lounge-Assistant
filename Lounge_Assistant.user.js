@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.6.6
+// @version     1.7
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.6.6
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -475,8 +475,38 @@ function addInventoryLink(){
 	return;
     var steamid = $(".profilesmallheader>a").attr("href").match(/\d+/)[0];
     $(".profilesmallheader").append($("<a>").attr("href", "http://steamcommunity.com/profiles/" + steamid + "/inventory").text("Inventory"));
-
 }
+
+function addMinimizeButton(){
+    $(".matchheader>.whenm:first-child").prepend(
+	$("<a>").attr({"class" : "la-minimize-match"}).text("-")
+    );
+
+    $(".matchheader>.whenm:first-child").append($("<br><div>").attr({"class" : "la-match-info"}).hide());
+
+    $(".la-minimize-match").click(function(){
+	$(this).text($(this).text() == "+" ? "-" : "+");
+	var matchmain = $(this).parents(".matchmain");
+	var teams = [{"name" : matchmain.find(".teamtext>b").eq(0).text(),
+		      "rate" : matchmain.find(".teamtext>i").eq(0).text()},
+		     {"name" : matchmain.find(".teamtext>b").eq(1).text(),
+		      "rate" : matchmain.find(".teamtext>i").eq(1).text()}
+		    ];
+
+	matchmain.find(".la-match-info").html("<b>" + teams[0].name + "</b> <i>" + teams[0].rate + "</i><span class='la-vs'> vs </span><b>" + teams[1].name + "</b><i> " + teams[1].rate + "</i>");
+	if ($(this).text() == "+"){
+	    matchmain.find(".match").fadeOut(400, "swing", function(){
+		matchmain.find(".la-match-info").fadeIn();
+	    });
+	}
+	else{
+	    matchmain.find(".la-match-info").fadeOut(400, "swing", function(){
+		matchmain.find(".match").fadeIn();
+	    });
+	}
+    });
+}
+
 
 setBackground();
 addModal();
@@ -491,18 +521,22 @@ if (isLogged)
 	trade();
     }
 
+addMinimizeButton();
+
 if (window.location.href.match(/mybets$/))
     displayBetHistory();
 
 $(".match").on('mouseenter', function (){
     var elem = $(this);
     var matchurl = elem.find("a").first().attr("href");
-    $(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html('-');
+    $(elem.find(".matchleft>a>div")[1]).attr({"class" : "la-bof"}).html('-');
 
     $.get(matchurl, function(data){
     	var bof = $($(data).find(".half")[1]).html();
-	$(elem.find(".matchleft>a>div")[1]).attr({"class" : "bof"}).html(bof);
+	$(elem.find(".matchleft>a>div")[1]).attr({"class" : "la-bof"}).html(bof);
 	elem.unbind('mouseenter');
     });
 
 });
+
+
