@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.7.1
+// @version     1.7.2
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7.1
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7.2
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -198,8 +198,27 @@ function addMenu(){
 
 
     $(".showContributor").click(function(){showContributor()});
+
     $(".la-option").click(function(){
 	$("#la-modal-option").slideDown('fast');
+	GM_xmlhttpRequest({
+	    context: document.body,
+	    method: "GET",
+	    url: "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js",
+	    onload: function(response) {
+		var document = response.context
+		var newVersion = response.responseText.match('^// @version\\s+(.*)$', "m");
+		if (newVersion[1] != GM_info.script.version)
+		{
+		    $(document).find(".la-option-version")
+			.append($("<a>").attr(
+			    {
+				"href": "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js",
+				"style" : "color:red"
+			    }).text(" Update to " + newVersion[1]));
+ 		}
+	    }
+	});
     });
 }
 
@@ -260,7 +279,7 @@ function addModal(){
 		    $("<select>").attr("class", "la-currency-list")
 		)
 	    ).append(
-		$("<div>").attr("class", "la-option-entry").append(
+		$("<div>").attr("class", "la-option-entry la-option-version").append(
 		    $("<label>").text("Version :")
 		).append(
 		    $("<a>").attr("href", "https://github.com/LoungeAssistant/Lounge-Assistant/raw/master/Lounge_Assistant.user.js").text(GM_info.script.version)
