@@ -559,7 +559,7 @@ th {
 }
 
 
-.la-minimize-match{
+.la-minimize-match, .la-minimize-all, .la-maximize-all{
     color: #FF8A00;
     text-shadow: rgb(0, 0, 0) 0px 0px 2px;
     font-weight: bold;

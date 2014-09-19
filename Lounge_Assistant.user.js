@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.7
+// @version     1.7.1
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7.1
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -478,6 +478,13 @@ function addInventoryLink(){
 }
 
 function addMinimizeButton(){
+    $("#bets").prepend(
+	$("<a>").attr({"class" : "la-maximize-all"}).text("+")
+    );
+    $("#bets").prepend(
+	$("<a>").attr({"class" : "la-minimize-all"}).text("-")
+    );
+
     $(".matchheader>.whenm:first-child").prepend(
 	$("<a>").attr({"class" : "la-minimize-match"}).text("-")
     );
@@ -504,6 +511,19 @@ function addMinimizeButton(){
 		matchmain.find(".match").fadeIn();
 	    });
 	}
+    });
+
+    $(".la-minimize-all").click(function(){
+	$.each($(".la-minimize-match"), function(idx, content){
+	    if ($(content).text() == "-")
+		setTimeout(function(){$(content).click()}, idx*100)
+	})
+    });
+    $(".la-maximize-all").click(function(){
+	$.each($(".la-minimize-match"), function(idx, content){
+	    if ($(content).text() == "+")
+		setTimeout(function(){$(content).click()}, idx*100)
+	})
     });
 }
 
