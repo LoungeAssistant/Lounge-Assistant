@@ -568,6 +568,9 @@ th {
     margin-right: 5px;
 }
 
+.la-minimize-match:hover, .la-minimize-all:hover, .la-maximize-all:hover{
+    color: #FFAA20;
+}
 .la-match-info{
     margin-top:5px;
     margin-left: 24px;
