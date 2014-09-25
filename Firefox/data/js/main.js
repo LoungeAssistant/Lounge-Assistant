@@ -3,7 +3,7 @@ var isLogged = $("#logout").length;
 
 
 var version = "2.0";
-
+var baseUrl = window.location.protocol + "//" + window.location.host + "/";
 var options = self.options;
 
 if (typeof chrome == "undefined")
@@ -189,7 +189,7 @@ function addMenu(){
 }
 
 function displayBotStatus(){
-    $.get("http://csgolounge.com//status", function(data){
+    $.get(baseUrl + "/status", function(data){
 	var status = $(data).find("tr").eq(1).find("td");
 	var msg = "Bots status "
 	var src = "";
@@ -218,7 +218,7 @@ function displayBetHistory(clearMain)
 {
     clearMain = typeof clearMain !== 'undefined' ? clearMain : false;
 
-    $.get("http://csgolounge.com//ajax/betHistory.php", function(data){
+    $.get(baseUrl + "/ajax/betHistory.php", function(data){
 	if (clearMain)
 	    $("#main").html($("<section>").attr("class", "box boxhistory").html(data));
 	else
@@ -230,7 +230,7 @@ function displayBetHistory(clearMain)
 function winLoss()
 {
     $("#la-winloose").text("Loading ...");
-    $.get("http://csgolounge.com//ajax/betHistory.php", function(data){
+    $.get(baseUrl + "/ajax/betHistory.php", function(data){
     	var won = $(data).find(".won").length;
     	var lost = $(data).find(".lost").length;
 	var total = won + lost;
@@ -255,7 +255,7 @@ function updateTrade()
 {
     $("#la-trade").text("Loading ...");
 
-    $.get("http://csgolounge.com/mytrades", function(data){
+    $.get(baseUrl + "/mytrades", function(data){
 	var tradesnb = $(data).find(".tradeheader").length;
 
 	$.each($(data).find(".tradeheader>.buttonright"), function (idx, item){
@@ -282,7 +282,7 @@ function trade()
 	$.each(bumps_url, function(idx, trade){
 	    $.ajax({
 	        type: "POST",
-		url: "http://csgolounge.com/ajax/bumpTrade.php",
+		url: baseUrl + "/ajax/bumpTrade.php",
 		data: "trade=" + trade
 	    });
 	});
@@ -381,7 +381,7 @@ $(".match").on('mouseenter', function (){
     var matchurl = elem.find("a").first().attr("href");
     $(elem.find(".matchleft>a>div")[1]).attr({"class" : "la-bof"}).html('-');
 
-    $.get("http://csgolounge.com/" + matchurl, function(data){
+    $.get(baseUrl + matchurl, function(data){
     	var bof = $($(data).find(".half")[1]).html();
 	$(elem.find(".matchleft>a>div")[1]).attr({"class" : "la-bof"}).html(bof);
 	elem.unbind('mouseenter');

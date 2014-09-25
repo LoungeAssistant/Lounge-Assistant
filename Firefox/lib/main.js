@@ -9,7 +9,22 @@ ss.storage.background = ss.storage.background ? ss.storage.background : "http://
 
 pageMod.PageMod({
     include: "http://csgolounge.com/*",
-    contentStyleFile : data.url("css/style.css"),
+    contentStyleFile : data.url("css/style_csgo.css"),
+    contentScriptFile: [
+	data.url("js/lib/jquery.min.js"),
+	data.url("js/main.js")
+    ],
+    contentScriptOptions: ss.storage,
+
+    onAttach: function(worker) {
+	worker.postMessage(ss.storage);
+    },
+
+});
+
+pageMod.PageMod({
+    include: "http://dota2lounge.com/*",
+    contentStyleFile : data.url("css/style_dota2.css"),
     contentScriptFile: [
 	data.url("js/lib/jquery.min.js"),
 	data.url("js/main.js")

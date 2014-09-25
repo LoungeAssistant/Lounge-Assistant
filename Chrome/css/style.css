@@ -508,6 +508,16 @@ th {
     box-shadow: none !important;
 }
 
+.Inscribed{
+    border: 1px solid #cf6a32 !important;
+    box-shadow: none !important;
+}
+
+.Auspicious{
+    border: 1px solid  #32CD32 !important;
+    box-shadow: none !important;
+}
+
 .StatTrak{
     border: 1px solid #CF6A32 !important;
     box-shadow: none !important;
@@ -516,6 +526,90 @@ th {
 
 .Souvenir{
     border: 1px solid #FFD700 !important;
+    box-shadow: none !important;
+}
+
+
+.Unusual{
+        border: 1px solid #8650AC !important;
+    box-shadow: none !important;
+}
+
+
+.Genuine{
+    border: 1px solid #4D7455 !important;
+    box-shadow: none !important;
+}
+
+
+.Corrupted{
+    border: 1px solid #A52A2A !important;
+    box-shadow: none !important;
+}
+
+
+.Normal{
+    border: 1px solid #B2B2B2 !important;
+    box-shadow: none !important;
+}
+
+
+.Frozen{
+    border: 1px solid #4682B4 !important;
+    box-shadow: none !important;
+}
+
+
+.Vintage{
+    border: 1px solid #476291 !important;
+    box-shadow: none !important;
+}
+
+
+.Tournament{
+    border: 1px solid #8650AC !important;
+    box-shadow: none !important;
+}
+
+
+.Lucky{
+    border: 1px solid #32CD32 !important;
+    box-shadow: none !important;
+}
+
+
+.Autographed{
+    border: 1px solid #ADE55C !important;
+    box-shadow: none !important;
+}
+
+
+.Exalted{
+    border: 1px solid #CCCCCC !important;
+    box-shadow: none !important;
+}
+
+
+.Legacy{
+    border: 1px solid #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+
+.Strange{
+    border: 1px solid #CF6A32 !important;
+    box-shadow: none !important;
+}
+
+
+.Cursed{
+    border: 1px solid #8650AC !important;
+    box-shadow: none !important;
+}
+
+
+.Unique{
+    border: 1px solid #D2D2D2 !important;
     box-shadow: none !important;
 }
 

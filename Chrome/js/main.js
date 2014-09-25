@@ -3,8 +3,9 @@ var isLogged = $("#logout").length;
 
 
 var version = "2.0";
-
+var baseUrl = window.location.protocol + "//" + window.location.host + "/";
 var options = self.options;
+var appId = baseUrl.match(/csgo/) ? 730 : 570;
 
 if (typeof chrome == "undefined")
 {
@@ -41,7 +42,17 @@ var colors = {
     "Exotic"        : "#D32CE6",
     "Extraordinary" : "#EB4B4B",
     "Contraband"    : "#E4AE39",
-};
+
+    "Common"        : "#B0C3D9",
+    "Uncommon"      : "#5E98D9",
+    "Rare"          : "#4B69FF",
+    "Mythical"      : "#8847FF",
+    "Immortal"      : "#E4AE39",
+    "Legendary"     : "#D32CE6",
+    "Arcana"        : "#ADE55C",
+    "Ancient"       : "#EB4B4B"
+}
+
 
 var PriceList = {};
 
@@ -99,7 +110,7 @@ function UpdateItem(){
 	var item =$(this);
 
 	storage.get("currency", function(currency) {
-	    $.getJSON("http://steamcommunity.com/market/priceoverview/?currency="+currency+"&appid=730&market_hash_name=" + itemName, function(json){
+	    $.getJSON("http://steamcommunity.com/market/priceoverview/?currency="+currency+"&appid="+appId+"&market_hash_name=" + itemName, function(json){
 		var price = "Not found";
 		if (json.success){
 		    if (typeof json.lowest_price != 'undefined')
@@ -124,30 +135,33 @@ function UpdateItem(){
     }).text("★"));
     startObserver();
 
-    $(".rarity" ).unbind("click");
-    $(".rarity" ).click(function(e) {
-	var newSrc = $(this).parent().find("img").attr("src").replace("99fx66f", "512fx388f");
-	var newLink = $(this).parent().find("a")[1].href;
-	$("#modalImg").attr("src", newSrc);
-	$("#modalMarket").attr("href", newLink);
-	$("#modalPreview").fadeIn("fast");
-    });
 
 
 
-    $('.rarity').unbind("mouseenter mouseleave");
-    $('.rarity').hover(
-	function() {
-	    var $this = $(this); // caching $(this)
-	    $this.data('initialText', $this.text());
-	    $this.text("Preview");
-	},
-	function() {
-	    var $this = $(this); // caching $(this)
-	    $this.text($this.data('initialText'));
-	}
-    );
+    if (appId == 730) // Only for Csgo
+    {
+	$(".rarity" ).unbind("click");
+	$(".rarity" ).click(function(e) {
+	    var newSrc = $(this).parent().find("img").attr("src").replace("99fx66f", "512fx388f");
+	    var newLink = $(this).parent().find("a")[1].href;
+	    $("#modalImg").attr("src", newSrc);
+	    $("#modalMarket").attr("href", newLink);
+	    $("#modalPreview").fadeIn("fast");
+	});
 
+	$('.rarity').unbind("mouseenter mouseleave");
+	$('.rarity').hover(
+	    function() {
+		var $this = $(this); // caching $(this)
+		$this.data('initialText', $this.text());
+		$this.text("Preview");
+	    },
+	    function() {
+		var $this = $(this); // caching $(this)
+		$this.text($this.data('initialText'));
+	    }
+	);
+    }
 }
 
 
@@ -189,7 +203,7 @@ function addMenu(){
 }
 
 function displayBotStatus(){
-    $.get("http://csgolounge.com//status", function(data){
+    $.get(baseUrl + "/status", function(data){
 	var status = $(data).find("tr").eq(1).find("td");
 	var msg = "Bots status "
 	var src = "";
@@ -218,7 +232,7 @@ function displayBetHistory(clearMain)
 {
     clearMain = typeof clearMain !== 'undefined' ? clearMain : false;
 
-    $.get("http://csgolounge.com//ajax/betHistory.php", function(data){
+    $.get(baseUrl + "/ajax/betHistory.php", function(data){
 	if (clearMain)
 	    $("#main").html($("<section>").attr("class", "box boxhistory").html(data));
 	else
@@ -230,7 +244,7 @@ function displayBetHistory(clearMain)
 function winLoss()
 {
     $("#la-winloose").text("Loading ...");
-    $.get("http://csgolounge.com//ajax/betHistory.php", function(data){
+    $.get(baseUrl + "/ajax/betHistory.php", function(data){
     	var won = $(data).find(".won").length;
     	var lost = $(data).find(".lost").length;
 	var total = won + lost;
@@ -255,7 +269,7 @@ function updateTrade()
 {
     $("#la-trade").text("Loading ...");
 
-    $.get("http://csgolounge.com/mytrades", function(data){
+    $.get(baseUrl + "/mytrades", function(data){
 	var tradesnb = $(data).find(".tradeheader").length;
 
 	$.each($(data).find(".tradeheader>.buttonright"), function (idx, item){
@@ -282,7 +296,7 @@ function trade()
 	$.each(bumps_url, function(idx, trade){
 	    $.ajax({
 	        type: "POST",
-		url: "http://csgolounge.com/ajax/bumpTrade.php",
+		url: baseUrl + "/ajax/bumpTrade.php",
 		data: "trade=" + trade
 	    });
 	});
@@ -381,7 +395,7 @@ $(".match").on('mouseenter', function (){
     var matchurl = elem.find("a").first().attr("href");
     $(elem.find(".matchleft>a>div")[1]).attr({"class" : "la-bof"}).html('-');
 
-    $.get("http://csgolounge.com/" + matchurl, function(data){
+    $.get(baseUrl + matchurl, function(data){
     	var bof = $($(data).find(".half")[1]).html();
 	$(elem.find(".matchleft>a>div")[1]).attr({"class" : "la-bof"}).html(bof);
 	elem.unbind('mouseenter');
