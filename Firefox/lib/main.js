@@ -9,7 +9,7 @@ ss.storage.background = ss.storage.background ? ss.storage.background : "http://
 
 pageMod.PageMod({
     include: "http://csgolounge.com/*",
-    contentStyleFile : data.url("css/style_csgo.css"),
+    contentStyleFile : data.url("css/style.css"),
     contentScriptFile: [
 	data.url("js/lib/jquery.min.js"),
 	data.url("js/main.js")
@@ -24,7 +24,7 @@ pageMod.PageMod({
 
 pageMod.PageMod({
     include: "http://dota2lounge.com/*",
-    contentStyleFile : data.url("css/style_dota2.css"),
+    contentStyleFile : data.url("css/style.css"),
     contentScriptFile: [
 	data.url("js/lib/jquery.min.js"),
 	data.url("js/main.js")
