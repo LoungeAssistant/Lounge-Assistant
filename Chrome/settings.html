@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="./js/lib/jquery.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/settings.css">
+  </head>
+  <body>
+    <div class="content">
+      <h1 id="addonname">Lounge Assistant <i id="version"></i></h1>
+      <!-- Nav tabs -->
+
+      <ul class="nav nav-tabs" role="tablist">
+	<li class="active"><a href="#settings" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+	<li><a href="#changelog" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Change-Log</a></li>
+	<li><a href="#about" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> About</a></li>
+	<li><a href="#donator" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-star"></span> Top Donators</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+
+      <div class="tab-content">
+	<div class="tab-pane active" id="settings">
+	  <div class="row">
+	    <div class="form-group">
+	      <div class="col-xs-3">
+		<label for="la-option-background"> Background : </label>
+	      </div>
+	      <div class="col-xs-8">
+		<input class="form-control" value="" placeholder="url" id="la-option-background">
+	      </div>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="form-group">
+	      <div class="col-xs-3">
+		<label for="la-currency-list">Currency : </label>
+	      </div>
+	      <div class="col-xs-8">
+		<select id="la-currency-list" class="form-control"></select>
+	      </div>
+	    </div>
+	  </div>
+	  <br>
+	  <div class="row">
+	    <div class="col-xs-6">
+	      <button class="la-option-validate btn btn-success">Save</button>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="col-xs-12">
+	      <p id="la-option-msg"></p>
+	    </div>
+	  </div>
+	</div>
+	<div class="tab-pane" id="changelog">
+	  <section>
+	    <h4>Version 2.0</h4>
+	    <ul>
+	      <li>Native version for Chrome and Firefox</li>
+	      <li>Cleanup on the on-page menu</li>
+	    </ul>
+	  </section>
+	</div>
+	<div class="tab-pane" id="about">
+	  <p>Lounge Assistant is created by <a target="_blank" href="http://steamcommunity.com/id/BitK/">BitK</a></p>
+	  <p>The aim was to bring lounge companion feature to firefox, but after a lot of work Lounge Assistant is finnaly available on Firefox and Chrome.</p>
+	  <p>For news update and suggestion I invite you to join us on <a target="_blank" href="http://steamcommunity.com/groups/LoungeAssistant">Steam</a></p>
+
+	  <p> Thanks to <a target="_blank" href="http://www.reddit.com/user/jhubbardsf">jhubbardsf</a> for the timezone script !</p>
+	  <hr>
+	  <ul>
+	    <li>Website : <a target="_blank" href="http://loungeassistant.github.io/Lounge-Assistant/">http://loungeassistant.github.io/Lounge-Assistant/</a></li>
+	    <li>Steam Group <a target="_blank" href="http://steamcommunity.com/groups/LoungeAssistant">http://steamcommunity.com/groups/LoungeAssistant</a></li>
+	  </ul>
+	</div>
+	<div class="tab-pane" id="donator">
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th>Name</th>
+		<th>Items</th>
+		<th>Total price</th>
+	      </tr>
+	    </thead>
+	    <tbody id="donatorsList">
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+      <hr>
+      <p>
+	<a href="http://steamcommunity.com/tradeoffer/new/?partner=79084932&token=3tOAL0yn" target="_blank">
+	  <button class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Donate to LoungeAssistant <span class="glyphicon glyphicon-heart"></span></button>
+	</a>
+      </p>
+    </div>
+  </body>
+  <script src="./js/settings.js"></script>
+</html>

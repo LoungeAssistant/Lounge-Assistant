@@ -1,0 +1,609 @@
+/*######################################################################*/
+/* MODAL */
+/*######################################################################*/
+html{
+    font-family: 'Proxima Nova Regular', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+}
+#modalPreview {
+    background-image : radial-gradient(at 50% 50%, rgba(193, 193, 193, 0.952941) 0%, rgba(109, 109, 109, 0.8) 90%) !important;
+    box-shadow : 2px 2px 6px 2px #000 !important;
+}
+
+/*######################################################################*/
+/* ITEMS */
+/*######################################################################*/
+
+.name {
+    border : 0.5px solid #FFF !important;
+    background-image : radial-gradient(at 50% 50%, rgb(86, 86, 86) 0%, rgb(56, 56, 56)) !important;
+    color: rgb(187, 187, 187) !important;
+    border-color: rgb(102, 102, 102) !important;
+    box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 5px 0px !important;
+    margin-top: 10px  !important;
+}
+
+
+.rarity{
+    color : white !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+    box-shadow : rgba(0, 0, 0, 0.9) 0px 2px 15px 0px inset !important;
+    margin-top : -5px !important;
+    border-radius : 0 !important;
+    height : 10px !important;
+}
+
+.item{
+    margin: 2px  !important;
+    cursor: pointer  !important;
+}
+
+/*######################################################################*/
+/* MAIN PAGE */
+/*######################################################################*/
+
+
+.box  {
+    background-color: rgba(45, 45, 45, 0.7) !important;
+    width: 48% !important;
+    height: auto  !important;
+    border: 1px solid black  !important;
+    color: rgb(187, 187, 187)  !important;
+    padding-bottom: 20px  !important;
+}
+#submenu {
+    border-right : 1px solid #000 !important;
+    min-height: 100% !important;
+    background: #313131 !important;
+    background-position : center  15px !important;
+    top: 73px !important;
+    position: absolute !important;
+    left: 0 !important;
+}
+
+#main {
+    margin-right: 0px  !important;
+    margin-left : 205px  !important}
+
+.left, .right {
+    background-color: rgba(35, 35, 35, 0.7)  !important;
+    border: solid 1px black  !important;
+    border-radius: 0  !important;
+    width: 47%  !important;
+    padding: 2px !important;
+}
+
+body {
+    background-repeat : no-repeat !important;
+    background-position : center top !important;
+    background-color : #000 !important;
+    background-image: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL) no-repeat !important;
+    background-color: #000 !important;
+}
+
+
+/*######################################################################*/
+/* TRADE */
+/*######################################################################*/
+
+
+.tradeheader {
+    font-size : 16px  !important;
+    background: none  !important;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%)  !important;
+}
+
+
+.tradeheader>a {
+    color: #FFF !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+}
+.tradeheader>a>span.user>b {
+    color: #888 !important;
+}
+
+#satrade{
+    background: none !important;
+}
+
+.tradepoll {
+    margin-bottom: auto  !important;
+    width: 98%  !important;
+}
+
+div.tradecnt {
+    background-size: 2% auto !important
+}
+.item {
+    height: auto  !important;
+    width: 23% !important;
+    background-image: radial-gradient(at 40% 40%, rgb(63, 63, 63) 0%, rgb(41, 41, 41) 80%)  !important;
+    border: 1px solid black  !important;
+    margin: 2px !important;
+}
+
+/*######################################################################*/
+/* MATCH */
+/*######################################################################*/
+
+
+.matchheader {
+    font-size : 16px  !important;
+    background: none  !important;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%)  !important;
+}
+
+.whenm {
+    color: white  !important;
+    text-shadow : none  !important;
+    font-weight: bold  !important;
+}
+
+.whenm:nth-child(1){
+    width: 75% !important;
+}
+
+.whenm:nth-child(2){
+    width: 25% !important;
+}
+
+.winsorloses {
+    margin-left: 25%  !important;
+    background: #313131  !important;
+    border: solid 1px black  !important;
+    border-radius: 0  !important;
+    margin-right: 5px !important;
+}
+
+#bets>.matchmain>.match{
+    opacity:1;
+    background-color: #BBB  !important;
+}
+
+.notaviable{
+    opacity: 0.5 !important;
+}
+.match{
+    background-color: rgba(35, 35, 35, 0.7) !important;
+}
+/*######################################################################*/
+/* BUTTON */
+/*######################################################################*/
+
+
+.simplePagerNav>li>a, a.buttonright, a.button, .full>.button, .half>.buttonright {
+    background : linear-gradient(to bottom, #FFF 5%, #D1D1D1 100%) !important; 
+    box-shadow: rgb(0, 0, 0) 0px 0px 4px 0px !important;
+    color : #555 !important;
+    text-shadow : 0px 1px 0px #FFF !important;
+    font-weight : bold  !important;
+    font-size : 16px !important;
+}
+
+a.buttonright:hover, a.button:hover{
+    color: #000 !important;
+}
+
+
+/*######################################################################*/
+/* PROFILE */
+/*######################################################################*/
+
+
+.box-shiny-alt, .box-shiny, #ajaxCont{
+    background-color: none !important;
+    background-image : none !important;
+    color: rgb(187, 187, 187) !important;
+    border: none !important;
+    box-shadow : none !important;
+    border-radius : 0 !important;
+}
+
+.box-shiny-alt>div>h1{
+   color : rgb(255, 138, 0) !important;
+   text-shadow : none !important;
+   font-weight : bold !important;
+}
+
+.box-shiny-alt>div>a{
+    color : rgb(255, 138, 0) !important;
+    text-shadow : none !important;
+    font-weight : bold !important;
+}
+
+.selectbox{
+    background-color: rgb(63, 63, 63) !important;
+    color: rgb(187, 187, 187) !important;
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 3px 0px inset !important;
+    border : 1px solid !important;
+    border-radius : 3px !important;
+    border-color: rgb(17, 17, 17) !important;
+}
+/*######################################################################*/
+/* BET HISTORY */
+/*######################################################################*/
+
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    background: transparent;
+    border-top: 1px solid rgb(51, 51, 51);
+    border-bottom: 1px solid rgb(37, 37, 37);
+    font-weight: bold ;
+    height: 27px;
+}
+
+tr>td>a{
+    color: rgb(255, 138, 0);
+}
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+
+}
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.won, .lost{
+    text-shadow: rgb(0, 0, 0) 0px 0px 5px !important;
+    background-color : rgba(0, 0, 0, 0.5);
+    padding-bottom: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    border-radius : 3px;
+    widt : auto;
+}
+
+.won{
+    color: rgb(142, 193, 62);
+}
+
+.lost{
+    color: rgb(209, 33, 33);
+}
+
+/*######################################################################*/
+/* MY BET */
+/*######################################################################*/
+
+.bpheader{
+    background-color: rgba(0, 0, 0, 0);
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.298039) 0%, rgba(41, 41, 41, 0) 65%);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: bold;
+    height: 15px;
+}
+
+
+.match{
+    border: solid 1px black;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+    color: rgb(187, 187, 187) !important;
+}
+
+.match>.half>a>span{
+    color: rgb(255, 138, 0);
+    font-weight: bold;
+}
+
+.match>.full>span{
+    display:none;
+}
+
+.potwin.Value{
+    float: right;
+    font-size : 24px;
+    font-weight: bold;
+    padding: 5px;
+    background-color: rgb(17, 17, 17);
+}
+
+
+
+/*######################################################################*/
+/* TRADE */
+/*######################################################################*/
+
+.tradeheader>.button{
+    float: right !important;
+}
+
+
+#notes{
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.message{
+    background : none  !important;
+    box-shadow: none !important;
+}
+
+.user>b{
+    font-weight : bold;
+    font-size : 16px;
+    color : #FF8A00;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px;
+}
+
+.msgleft{
+    font-weight : bold;
+    color : white !important;
+}
+
+.msgleft>b>.user{
+    color: #888 !important;
+}
+
+#satrade {
+    background-color: rgba(15, 15, 14, 0.36);
+    border: solid 1px black;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+    color: rgb(187, 187, 187) !important;
+    background-image : none;
+}
+.tradepoll, .tradecnt{
+    color: rgb(187, 187, 187) !important;
+    background-size: 5% auto !important;
+    width: 98%;
+}
+
+.tradepoll>form.left, .tradepoll>form.right, {
+    min-height: 150px;
+    width: 45%;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+}
+
+.tradecnt>.left, .tradecnt>.right{
+    width: 47% !Important;
+}
+
+.tabholder{
+    width: 100% !important;
+    margin-left: 0px !important;
+}
+
+.tabholder > .tab{
+    background-color: black;
+    color : white;
+    border-bottom-right-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+}
+
+
+
+.menuAssistant>b{
+    font-size: 16px;
+    font-weight : bold;
+    text-align: center;
+    cursor : default;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px;
+
+}
+
+
+
+#modalAssistant {
+    z-index: 1;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    border-radius: 10px;
+    box-shadow: #000 1px 1px 3px 1px;
+    background-color: #555;
+}
+
+#modalCnt{
+    padding: 50px;
+}
+
+
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+}
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+tr {
+    color: rgb(187, 187, 187);
+}
+
+th {
+    width: 150px;
+    background-color: rgba(0, 0, 0, 1);
+}
+
+#modalCnt>table>tbody>tr>td{
+    text-align:center;
+}
+
+#modalAssistant>a{
+    z-index:100;
+}
+
+
+
+.currencyList{
+    margin-left: 20px;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%);
+    border : none;
+}
+
+
+.standard{
+    color: rgb(187, 187, 187) !important;
+}
+
+.currencydiv{
+    padding: 8px 0px 8px 10px;
+    border: medium none;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #252525;
+    float: right !important;
+    width: 190px;
+    background: none repeat scroll 0% 0% #2d2d2d;
+    color: #FF8A00;
+    margin-top: 0 !important;
+}
+
+.currencydiv>span{
+    margin-left: 0 !important;
+}
+
+.matchleft{
+    position: relative;
+}
+
+.la-bof{
+    color : #00000;
+}
+
+
+#modalMarket{
+    background-image: linear-gradient(#3F3F3F 0%, #262626 100%);
+    box-shadow: #000 0px 0px 4px 0px;
+    color: #C7C7C7;
+    padding:5px;
+    text-shadow: #000 1px 1px 0px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.notification{
+    color : black;
+    text-shadow: none;
+}
+
+
+.winning>b{
+    color: #76EE00;
+}
+.loosing>b{
+    color: #FF0000;
+}
+
+
+.botstatus{
+    height: 11px;
+}
+
+.profilesmallheader> a{
+    color : #FF8A00;
+    text-shadow: #000 1px 1px 0px;
+}
+
+.boxhistory
+{
+    padding:10px;
+}
+
+.Star{
+    border: 1px solid  #8650AC !important;
+    box-shadow: none !important;
+}
+
+.StatTrak{
+    border: 1px solid #CF6A32 !important;
+    box-shadow: none !important;
+}
+
+
+.Souvenir{
+    border: 1px solid #FFD700 !important;
+    box-shadow: none !important;
+}
+
+#replist>li>a{
+    color : #FF8A00;
+}
+
+#replist>li:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+
+}
+#replist>li:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+#bonuses>table>tbody>tr>td{
+    color: #000 !important;
+}
+
+.author>a{
+    color : #FF8A00 !important;
+}
+
+
+#submitmsg{
+    margin: 5px;
+    color : #FF8A00;
+}
+
+.autoplace{
+    margin: 5px;
+}
+
+#modalCntmodal {
+    color : black;
+}
+
+
+.la-bot-status{
+    border-bottom-width: 0;
+}
+
+
+.la-minimize-match, .la-minimize-all, .la-maximize-all{
+    color: #FF8A00;
+    text-shadow: rgb(0, 0, 0) 0px 0px 2px;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.la-minimize-match:hover, .la-minimize-all:hover, .la-maximize-all:hover{
+    color: #FFAA20;
+}
+.la-match-info{
+    margin-top:5px;
+    margin-left: 24px;
+}
+
+.la-match-info>b{
+    color: #FF8A00;
+    font-size : 16px;
+}
+
+.la-match-info>i{
+    color: grey;
+    font-size : 14px;
+}
+
+
+.la-vs{
+    color: lightgrey;
+    margin-right:10px;
+    margin-left: 10px;
+}
+
+.matchmain{
+    margin-bottom: 2px;
+}
+
+
+span.publisher-anchor-color>a{
+    color: #FF8A00 !important;
+}
+
+
+.la-time-match{
+    margin-left: 10px;
+    font-weight: lighter;
+}

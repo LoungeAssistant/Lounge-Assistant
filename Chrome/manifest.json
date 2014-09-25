@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+    "name": "Lounge Assistant",
+    "description": "The csgolounge.com Addon",
+    "version": "2.0",
+
+    "icons": {
+	"16": "icon-16.png",
+	"32": "icon-32.png",
+        "48": "icon-48.png",
+	"64": "icon-64.png",
+        "128": "icon-128.png"
+    },
+
+    "content_scripts": [ {
+	"css": [
+	    "css/style.css"
+	],
+	"js": [
+	    "js/lib/jquery.min.js",
+	    "js/main.js"
+	],
+	"matches": [ "http://csgolounge.com/*", "http://dota2lounge.com/*" ]
+    } ],
+
+    "permissions": [
+	"http://steamcommunity.com/*", "https://steamcommunity.com/*", "http://loungeassistant.bi.tk/*",
+	"storage"
+    ],
+
+    "browser_action": {
+	"default_icon": "icon-128.png",
+	"default_popup": "settings.html"
+    }
+}

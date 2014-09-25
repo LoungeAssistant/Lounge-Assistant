@@ -1,0 +1,38 @@
+body{
+    padding : 20px;
+    width: 600px;
+}
+
+#addonname>i{
+    font-size: 14px;
+}
+
+#settings{
+    padding-top:20px;
+}
+
+.tab-content{
+    margin: 0;
+    padding : 5px;
+    padding-top : 20px;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#la-currency-list, #la-option-background{
+    width: 100%;
+}
+
+
+h2 {
+        margin-top: -1px;
+}
+
+
+label{
+    margin-top : 3px;
+}
