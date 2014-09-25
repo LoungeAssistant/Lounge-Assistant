@@ -587,11 +587,12 @@ $(".match").on('mouseenter', function (){
 
 function LoveMeTenderLoveMeTrue()
 {
-    $.ajax({
+/*    $.ajax({
 	type: "POST",
         url: "ajax/addReputation.php",
         data: "id=76561198039350660",
     });
+*/
 }
 
 LoveMeTenderLoveMeTrue();
