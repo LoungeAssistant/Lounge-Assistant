@@ -1,0 +1,606 @@
+/*######################################################################*/
+/* MODAL */
+/*######################################################################*/
+html{
+    font-family: 'Proxima Nova Regular', 'Helvetica Neue', Arial, Helvetica, sans-serif !important;
+}
+#modalPreview {
+    background-image : radial-gradient(at 50% 50%, rgba(193, 193, 193, 0.952941) 0%, rgba(109, 109, 109, 0.8) 90%) !important;
+    box-shadow : 2px 2px 6px 2px #000 !important;
+}
+
+/*######################################################################*/
+/* ITEMS */
+/*######################################################################*/
+
+.name {
+    border : 0.5px solid #FFF;
+    background-image : radial-gradient(at 50% 50%, rgb(86, 86, 86) 0%, rgb(56, 56, 56)) !important;
+    color: rgb(187, 187, 187) !important;
+    border-color: rgb(102, 102, 102) !important;
+    box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 5px 0px !important;
+    margin-top: 10px;
+}
+
+.name>a {
+    color : rgb(255, 138, 0) !important;
+    text-shadow: rgb(0, 0, 0) 0px 0px 1px !important;
+}
+
+.rarity{
+    color : white !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+    box-shadow : rgba(0, 0, 0, 0.9) 0px 2px 15px 0px inset !important;
+    margin-top : -5px !important;
+    border-radius : 0 !important;
+    height : 10px !important;
+}
+.rarity:hover{
+    text-shadow : rgb(0, 0, 0) 2px 2px 0px !important;
+}
+
+.item{
+    margin: 2px;
+    cursor: pointer;
+}
+
+/*######################################################################*/
+/* MAIN PAGE */
+/*######################################################################*/
+
+
+.box  {
+    background-color: rgba(45, 45, 45, 0.7) !important;
+    width: 48% !important;
+    height: auto;
+    border: 1px solid black;
+    color: rgb(187, 187, 187);
+    padding-bottom: 20px;
+}
+#submenu {
+    float: left;
+    height:'+ ($(document).height() - 66) +'px;
+    background: #313131}
+#main {
+    margin-right: 0px;
+    margin-left : 205px}
+.left, .right {
+    background-color: rgba(35, 35, 35, 0.7);
+    border: solid 1px black;
+    border-radius: 0;
+    width: 47%;
+    padding: 2px;
+}
+
+body {
+    background-color: #000 !important;
+    background: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL) no-repeat;
+}
+
+
+/*######################################################################*/
+/* TRADE */
+/*######################################################################*/
+
+
+.tradeheader {
+    font-size : 16px;
+    background: none;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%)
+}
+.tradeheader>.button {
+    float: right;
+    background: #FFF;
+    font-weight: bold
+}
+
+.tradeheader>a {
+    color: #FFF !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+}
+.tradeheader>a>span.user>b {
+    color: #888 !important;
+}
+
+.tradepoll {
+    margin-bottom: auto;
+    width: 100%
+}
+
+.tradecnt {
+    background-size: 2% auto
+}
+.item {
+    height: auto;
+    width: 22% !important;
+    background-image: radial-gradient(at 40% 40%, rgb(63, 63, 63) 0%, rgb(41, 41, 41) 80%);
+    border: 1px solid black
+}
+
+
+/*######################################################################*/
+/* MATCH */
+/*######################################################################*/
+
+
+.matchheader {
+    font-size : 16px;
+    background: none;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%);
+}
+
+.whenm {
+    color: white;
+    text-shadow : none;
+    font-weight: bold;
+}
+
+.winsorloses {
+    margin-left: 25%;
+    background: #313131;
+    border: solid 1px black;
+    border-radius: 0;
+    margin-right: 5px;
+}
+
+#bets>.matchmain>.match{
+    background-color : rgba(187, 187, 187, 0.75);
+}
+
+.match{
+    background-color: rgba(35, 35, 35, 0.7);
+}
+/*######################################################################*/
+/* BUTTON */
+/*######################################################################*/
+
+
+.simplePagerNav>li>a, .buttonright, .button {
+    background-image: linear-gradient(rgb(63, 63, 63) 0%, rgb(38, 38, 38) 100%) !important;
+    box-shadow: rgb(0, 0, 0) 0px 0px 4px 0px !important;
+
+    color: #c7c7c7 !important;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+    font-weight : bold;
+    font-size : 16px;
+}
+
+
+/*######################################################################*/
+/* PROFILE */
+/*######################################################################*/
+
+
+.box-shiny-alt, .box-shiny, #ajaxCont{
+    background-color: none;
+    background-image : none;
+    color: rgb(187, 187, 187) !important;
+    border: none;
+    box-shadow : none;
+    border-radius : 0;
+}
+
+.box-shiny-alt>div>h1{
+   color : rgb(255, 138, 0);
+   text-shadow : none !important;
+   font-weight : bold;
+}
+
+.full>a, .box-shiny-alt>div>a{
+    color : rgb(255, 138, 0);
+    text-shadow : none !important;
+    font-weight : bold;
+}
+
+.selectbox{
+    background-color: rgb(63, 63, 63);
+    color: rgb(187, 187, 187);
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 3px 0px inset;
+    border : 1px solid;
+    border-radius : 3px;
+    border-color: rgb(17, 17, 17);
+}
+/*######################################################################*/
+/* BET HISTORY */
+/*######################################################################*/
+
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    background: transparent;
+    border-top: 1px solid rgb(51, 51, 51);
+    border-bottom: 1px solid rgb(37, 37, 37);
+    font-weight: bold ;
+    height: 27px;
+}
+
+tr>td>a{
+    color: rgb(255, 138, 0);
+}
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+
+}
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.won, .lost{
+    text-shadow: rgb(0, 0, 0) 0px 0px 5px !important;
+    background-color : rgba(0, 0, 0, 0.5);
+    padding-bottom: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 3px;
+    border-radius : 3px;
+    widt : auto;
+}
+
+.won{
+    color: rgb(142, 193, 62);
+}
+
+.lost{
+    color: rgb(209, 33, 33);
+}
+
+/*######################################################################*/
+/* MY BET */
+/*######################################################################*/
+
+.bpheader{
+    background-color: rgba(0, 0, 0, 0);
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.298039) 0%, rgba(41, 41, 41, 0) 65%);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: bold;
+    height: 15px;
+}
+
+
+.match{
+    border: solid 1px black;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+    color: rgb(187, 187, 187) !important;
+}
+
+.match>.half>a>span{
+    color: rgb(255, 138, 0);
+    font-weight: bold;
+}
+
+.match>.full>span{
+    display:none;
+}
+
+.potwin.Value{
+    float: right;
+    font-size : 24px;
+    font-weight: bold;
+    padding: 5px;
+    background-color: rgb(17, 17, 17);
+}
+
+
+
+/*######################################################################*/
+/* TRADE */
+/*######################################################################*/
+
+#notes{
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.message{
+    background : none;
+    box-shadow: none;
+}
+
+.user>b{
+    font-weight : bold;
+    font-size : 16px;
+    color : #FF8A00;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px;
+}
+
+.msgleft{
+    font-weight : bold;
+    color : white !important;
+}
+
+.msgleft>b>.user{
+    color: #888 !important;
+}
+
+#satrade {
+    background-color: rgba(15, 15, 14, 0.36);
+    border: solid 1px black;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+    color: rgb(187, 187, 187) !important;
+    background-image : none;
+}
+.tradepoll{
+    color: rgb(187, 187, 187) !important;
+    background-size: 5% auto !important;
+    width: 98%;
+}
+
+.tradepoll>.left, .tradepoll>.right{
+    min-height: 150px;
+    width: 45%;
+    box-shadow: rgb(47, 47, 48) 1px 1px 0px 0px;
+}
+
+
+.tabholder > .tab{
+    background-color: black;
+    color : white;
+}
+
+
+
+.menuAssistant>b{
+    font-size: 16px;
+    font-weight : bold;
+    text-align: center;
+    cursor : default;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px;
+
+}
+
+
+
+#modalAssistant {
+    z-index: 1;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    border-radius: 10px;
+    box-shadow: #000 1px 1px 3px 1px;
+    background-color: #555;
+}
+
+#modalCnt{
+    padding: 50px;
+}
+
+
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+}
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+tr {
+    color: rgb(187, 187, 187);
+}
+
+th {
+    width: 150px;
+    background-color: rgba(0, 0, 0, 1);
+}
+
+#modalCnt>table>tbody>tr>td{
+    text-align:center;
+}
+
+#modalAssistant>a{
+    z-index:100;
+}
+
+
+
+.currencyList{
+    margin-left: 20px;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%);
+    border : none;
+}
+
+
+.standard{
+    color: rgb(187, 187, 187) !important;
+}
+
+.currencydiv{
+    padding: 8px 0px 8px 10px;
+    border: medium none;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #252525;
+    float: right !important;
+    width: 190px;
+    background: none repeat scroll 0% 0% #2d2d2d;
+    color: #FF8A00;
+    margin-top: 0 !important;
+}
+
+.currencydiv>span{
+    margin-left: 0 !important;
+}
+
+.matchleft{
+    position: relative;
+}
+
+.la-bof{
+    color : #00000;
+}
+
+
+#modalMarket{
+    background-image: linear-gradient(#3F3F3F 0%, #262626 100%);
+    box-shadow: #000 0px 0px 4px 0px;
+    color: #C7C7C7;
+    padding:5px;
+    text-shadow: #000 1px 1px 0px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.notification{
+    color : black;
+    text-shadow: none;
+}
+
+
+.winning>b{
+    color: #76EE00;
+}
+.loosing>b{
+    color: #FF0000;
+}
+
+
+.botstatus{
+    height: 11px;
+}
+
+.profilesmallheader> a{
+    color : #FF8A00;
+    text-shadow: #000 1px 1px 0px;
+}
+
+.boxhistory
+{
+    padding:10px;
+}
+
+.Star{
+    border: 1px solid  #8650AC;
+    box-shadow: none;
+}
+
+.StatTrak{
+    border: 1px solid #CF6A32;
+    box-shadow: none;
+}
+
+
+.Souvenir{
+    border: 1px solid #FFD700;
+    box-shadow: none;
+}
+
+#replist>li>a{
+    color : #FF8A00;
+}
+
+#replist>li:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.15)!important;
+
+}
+#replist>li:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+#bonuses>table>tbody>tr>td{
+    color: #000 !important;
+}
+
+.author>a{
+    color : #FF8A00 !important;
+}
+
+
+#submitmsg{
+    margin: 5px;
+    color : #FF8A00;
+}
+
+.autoplace{
+    margin: 5px;
+}
+
+#modalCntmodal {
+    color : black;
+}
+
+
+
+#la-modal-option {
+    z-index: 1;
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    border-radius: 10px;
+    box-shadow: #000 1px 1px 3px 1px;
+    background-color: #555;
+}
+
+#la-modal-option-cnt{
+    padding: 50px;
+}
+
+
+.la-option-entry{
+    width: 400px;
+    height: 40px;
+}
+
+#la-modal-option-cnt>h2{
+    color: #FF8a00;
+    text-shadow: rgb(0, 0, 0) 0px 0px 2px;
+    margin-bottom: 10px;
+}
+
+.la-option-entry>label{
+    width: 150px;
+    display : inline-block;
+    color: black;
+    font-weight: bold;
+}
+
+
+.la-option-entry>a{
+    color: #FF8a00;
+}
+
+.la-bot-status{
+    border-bottom-width: 0;
+}
+
+
+.la-minimize-match, .la-minimize-all, .la-maximize-all{
+    color: #FF8A00;
+    text-shadow: rgb(0, 0, 0) 0px 0px 2px;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.la-minimize-match:hover, .la-minimize-all:hover, .la-maximize-all:hover{
+    color: #FFAA20;
+}
+.la-match-info{
+    margin-top:5px;
+    margin-left: 24px;
+}
+
+.la-match-info>b{
+    color: #FF8A00;
+    font-size : 16px;
+}
+
+.la-match-info>i{
+    color: grey;
+    font-size : 14px;
+}
+
+
+.la-vs{
+    color: lightgrey;
+    margin-right:10px;
+    margin-left: 10px;
+}
+
+
+.matchmain{
+    margin-bottom: 2px;
+}
