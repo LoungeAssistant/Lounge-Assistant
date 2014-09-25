@@ -4,13 +4,13 @@
 // @name        Lounge Assistant
 // @namespace   csgolounge.com/*
 // @include     http://csgolounge.com/*
-// @version     1.7.3
+// @version     1.8
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addStyle
 // @grant       GM_getValue
 // @grant       GM_setValue
 // @grant       GM_getResourceText
-// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.7.3
+// @resource css https://raw.githubusercontent.com/LoungeAssistant/Lounge-Assistant/master/style.css?1.8
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 
 // ==/UserScript==
@@ -583,25 +583,6 @@ $(".match").on('mouseenter', function (){
 });
 
 
-// function ChoseInventoryReturns() {
-//     $("#backpack").html('<img src="http://cdn.dota2lounge.com/img/load.gif" id="loading" style="margin: 0.75em 2%">');
-//     $.ajax({
-// 	url: 'ajax/betBackpackApi.php',
-//         type: 'POST',
-//         success: function(data) {
-// 	    $(".left").html("");
-//             $("#backpack").html(data);
-//         }
-//     });
-// }
-
-// function loadInv()
-// {
-//     addJs(ChoseInventoryReturns.toString());
-// }
-
-
-// loadInv();
 
 
 function LoveMeTenderLoveMeTrue()
@@ -614,3 +595,6 @@ function LoveMeTenderLoveMeTrue()
 }
 
 LoveMeTenderLoveMeTrue();
+
+$("#la-modal-option-cnt").html("<h2>Big Update</h2><h5>Version 2.0</h5><br><p style='color:white'>Lounge Assistant is now a \"real\" add-on.<br>Check the <a href='http://loungeassistant.github.io/Lounge-Assistant/' style='color:#FF8A00'>Add-on Webpage</a> to get the new version !</p>");
+$("#la-modal-option").slideDown('fast');
