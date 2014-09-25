@@ -41,6 +41,9 @@ html{
 /* MAIN PAGE */
 /*######################################################################*/
 
+.title{
+    position: relative !important;
+}
 
 .box  {
     background-color: rgba(45, 45, 45, 0.7) !important;

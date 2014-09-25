@@ -403,19 +403,6 @@ $(".match").on('mouseenter', function (){
 
 });
 
-//  Not called, but still here for the properity
-
-/*
-function LoveMeTenderLoveMeTrue()
-{
-    $.ajax({
-	type: "POST",
-        url: "ajax/addReputation.php",
-        data: "id=76561198039350660",
-    });
-}
-
-*/
 
 function addTime()
 {
@@ -495,7 +482,6 @@ addMenu();
 addTime();
 addInventoryLink();
 displayBotStatus();
-
 if (isLogged)
 {
     addAutoSubmit();
