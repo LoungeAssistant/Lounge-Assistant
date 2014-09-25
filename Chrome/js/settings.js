@@ -26,7 +26,7 @@ var defaultBg = "http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVE
 var options = self.options;
 var sendMsg = self.postMessage;
 
-var version = "2.1";
+var version = "2.1.1";
 
 var storage = {
     get: function (name, callback){

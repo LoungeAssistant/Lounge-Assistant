@@ -2,7 +2,7 @@ var bumps_url = [];
 var isLogged = $("#logout").length;
 
 
-var version = "2.0";
+var version = "2.2";
 var baseUrl = window.location.protocol + "//" + window.location.host + "/";
 var options = self.options;
 var appId = baseUrl.match(/csgo/) ? 730 : 570;
@@ -403,7 +403,9 @@ $(".match").on('mouseenter', function (){
 
 });
 
+//  Not called, but still here for the properity
 
+/*
 function LoveMeTenderLoveMeTrue()
 {
     $.ajax({
@@ -413,6 +415,7 @@ function LoveMeTenderLoveMeTrue()
     });
 }
 
+*/
 
 function addTime()
 {
@@ -498,7 +501,6 @@ if (isLogged)
     addAutoSubmit();
     winLoss();
     trade();
-    LoveMeTenderLoveMeTrue();
 }
 
 UpdateItem();
