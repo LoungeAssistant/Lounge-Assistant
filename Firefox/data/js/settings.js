@@ -26,6 +26,8 @@ var defaultBg = "http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVE
 var options = self.options;
 var sendMsg = self.postMessage;
 
+var version = "2.1";
+
 var storage = {
     get: function (name, callback){
 	if (typeof chrome == "undefined")
@@ -51,8 +53,33 @@ var storage = {
 };
 
 
+function reloadDonator()
+{
+    $("#donatorsList").html("Loading ...");
+    $.getJSON("http://loungeassistant.bi.tk/donators.json?"+ Math.random(), function(donators){
+	donators.sort(function(a, b) {
+	    return b.totalprice - a.totalprice;
+	})
+
+	$("#donatorsList").html("");
+	$.each(donators, function(idx, donator){
+	    $("#donatorsList").append(
+		$("<tr>").append(
+		    $("<td>").append(
+			$("<a>").attr("href", donator.link).text(donator.name)
+		    )
+		).append(
+		    $("<td>").text(donator.items)
+		).append(
+		    $("<td>").text(donator.totalprice + "€")
+		)
+	    );
+	});
+    });
+}
+
 $(document).ready(function(){
-    $("#version").text("2.0");
+    $("#version").text(version);
 
     $(".la-option-validate").click(function(e){
 	var background = $("#la-option-background").val();
@@ -73,27 +100,12 @@ $(document).ready(function(){
 	$("#la-option-background").val(background);
     });
 
-
-
-    $.getJSON("http://loungeassistant.bi.tk/donators.json?"+ Math.random(), function(donators){
-	donators.sort(function(a, b) {
-	    return b.totalprice - a.totalprice;
-	})
-
-	$.each(donators, function(idx, donator){
-	    $("#donatorsList").append(
-		$("<tr>").append(
-		    $("<td>").append(
-			$("<a>").attr("href", donator.link).text(donator.name)
-		    )
-		).append(
-		    $("<td>").text(donator.items)
-		).append(
-		    $("<td>").text(donator.totalprice + "€")
-		)
-	    );
-	});
+    $("#la-reload").click(function(){
+	reloadDonator();
     });
+
+    reloadDonator();
 });
+
 
 

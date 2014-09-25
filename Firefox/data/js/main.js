@@ -5,6 +5,7 @@ var isLogged = $("#logout").length;
 var version = "2.0";
 var baseUrl = window.location.protocol + "//" + window.location.host + "/";
 var options = self.options;
+var appId = baseUrl.match(/csgo/) ? 730 : 570;
 
 if (typeof chrome == "undefined")
 {
@@ -41,7 +42,17 @@ var colors = {
     "Exotic"        : "#D32CE6",
     "Extraordinary" : "#EB4B4B",
     "Contraband"    : "#E4AE39",
-};
+
+    "Common"        : "#B0C3D9",
+    "Uncommon"      : "#5E98D9",
+    "Rare"          : "#4B69FF",
+    "Mythical"      : "#8847FF",
+    "Immortal"      : "#E4AE39",
+    "Legendary"     : "#D32CE6",
+    "Arcana"        : "#ADE55C",
+    "Ancient"       : "#EB4B4B"
+}
+
 
 var PriceList = {};
 
@@ -99,7 +110,7 @@ function UpdateItem(){
 	var item =$(this);
 
 	storage.get("currency", function(currency) {
-	    $.getJSON("http://steamcommunity.com/market/priceoverview/?currency="+currency+"&appid=730&market_hash_name=" + itemName, function(json){
+	    $.getJSON("http://steamcommunity.com/market/priceoverview/?currency="+currency+"&appid="+appId+"&market_hash_name=" + itemName, function(json){
 		var price = "Not found";
 		if (json.success){
 		    if (typeof json.lowest_price != 'undefined')
@@ -124,30 +135,33 @@ function UpdateItem(){
     }).text("★"));
     startObserver();
 
-    $(".rarity" ).unbind("click");
-    $(".rarity" ).click(function(e) {
-	var newSrc = $(this).parent().find("img").attr("src").replace("99fx66f", "512fx388f");
-	var newLink = $(this).parent().find("a")[1].href;
-	$("#modalImg").attr("src", newSrc);
-	$("#modalMarket").attr("href", newLink);
-	$("#modalPreview").fadeIn("fast");
-    });
 
 
 
-    $('.rarity').unbind("mouseenter mouseleave");
-    $('.rarity').hover(
-	function() {
-	    var $this = $(this); // caching $(this)
-	    $this.data('initialText', $this.text());
-	    $this.text("Preview");
-	},
-	function() {
-	    var $this = $(this); // caching $(this)
-	    $this.text($this.data('initialText'));
-	}
-    );
+    if (appId == 730) // Only for Csgo
+    {
+	$(".rarity" ).unbind("click");
+	$(".rarity" ).click(function(e) {
+	    var newSrc = $(this).parent().find("img").attr("src").replace("99fx66f", "512fx388f");
+	    var newLink = $(this).parent().find("a")[1].href;
+	    $("#modalImg").attr("src", newSrc);
+	    $("#modalMarket").attr("href", newLink);
+	    $("#modalPreview").fadeIn("fast");
+	});
 
+	$('.rarity').unbind("mouseenter mouseleave");
+	$('.rarity').hover(
+	    function() {
+		var $this = $(this); // caching $(this)
+		$this.data('initialText', $this.text());
+		$this.text("Preview");
+	    },
+	    function() {
+		var $this = $(this); // caching $(this)
+		$this.text($this.data('initialText'));
+	    }
+	);
+    }
 }
 
 
