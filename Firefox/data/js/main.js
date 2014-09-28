@@ -441,16 +441,20 @@ function addTime()
     	hour = hour - tzOffset;
     	hour = (hour < 0) ? 24 + hour : hour;
 
-    	if (hour == 12) {
-    	    AMorPM = "PM";
-    	} else if (hour > 12) {
-    	    hour = hour - 12;
-    	    AMorPM = "PM";
-    	} else {
-    	    AMorPM = "AM";
-    	}
+		/*
+		if (hour == 12) {
+			AMorPM = "PM";
+		} else if (hour > 12) {
+			hour = hour - 12;
+			AMorPM = "PM";
+		} else {
+			AMorPM = "AM";
+		}
 
-    	$timeBox.text(hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
+		$timeBox.text("Local time: " + hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
+		*/
+
+		$timeBox.text("Local time: " + hour + ":" + minute);
     }
 
     // Shows times on front page.
@@ -464,7 +468,7 @@ function addTime()
 	    if (timeText.match(/day/))
 		return 0;
 	    var offset = timeText.match(/\d+/)[0];
-	    var isFuture = timeText.match("ago") > 0 ?  -1 : 1;
+	    var isFuture = timeText.match(/ago/) ?  -1 : 1;
 
 	    if (timeText.match(/hour/))
 		var gameTime = new Date(dt.getTime() + (offset * 3600000 * isFuture));
@@ -481,10 +485,14 @@ function addTime()
 		gameMinute = (gameMinute === 0) ? "00" : gameMinute;
 	    }
 
+		/*
 	    AMorPM = (gameHour >= 12) ? "PM" : "AM";
 	    gameHour = (gameHour > 12) ? gameHour - 12 : gameHour;
 
-	    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
+		$(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
+		*/
+
+	    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + ")");
 	});
     }
 }
