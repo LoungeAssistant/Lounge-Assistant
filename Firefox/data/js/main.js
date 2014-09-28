@@ -431,6 +431,10 @@ function addTime()
     tzOffset = (dt.getTimezoneOffset()/60) + 2,
     hour = parseInt(hour) - tzOffset,
     AMorPM = "";
+	timeFormat = "";
+	storage.get("timeFormat", function(format){
+		timeFormat = format;
+	});
 
     // Converts CEST to local on match page.
     if ($timeBox.length) {
@@ -441,20 +445,20 @@ function addTime()
     	hour = hour - tzOffset;
     	hour = (hour < 0) ? 24 + hour : hour;
 
-		/*
-		if (hour == 12) {
-			AMorPM = "PM";
-		} else if (hour > 12) {
-			hour = hour - 12;
-			AMorPM = "PM";
+		if (timeFormat == "24h") {
+			$timeBox.text("Local time: " + hour + ":" + minute);
 		} else {
-			AMorPM = "AM";
+			if (hour == 12) {
+				AMorPM = "PM";
+			} else if (hour > 12) {
+				hour = hour - 12;
+				AMorPM = "PM";
+			} else {
+				AMorPM = "AM";
+			}
+
+			$timeBox.text(hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
 		}
-
-		$timeBox.text("Local time: " + hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
-		*/
-
-		$timeBox.text("Local time: " + hour + ":" + minute);
     }
 
     // Shows times on front page.
@@ -485,14 +489,13 @@ function addTime()
 		gameMinute = (gameMinute === 0) ? "00" : gameMinute;
 	    }
 
-		/*
-	    AMorPM = (gameHour >= 12) ? "PM" : "AM";
-	    gameHour = (gameHour > 12) ? gameHour - 12 : gameHour;
-
-		$(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
-		*/
-
-	    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + ")");
+		if (timeFormat == "24h") {
+			$(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + ")");
+		} else {
+			AMorPM = (gameHour >= 12) ? "PM" : "AM";
+			gameHour = (gameHour > 12) ? gameHour - 12 : gameHour;
+				$(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
+		}
 	});
     }
 }
