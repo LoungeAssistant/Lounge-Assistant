@@ -21,6 +21,11 @@ var currency = {
     "NZ$"  : "22"
 };
 
+var timeFormat = {
+    "12h"    : "12h",
+    "24h"    : "24h"
+};
+
 var defaultBg = "http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL";
 
 var options = self.options;
@@ -85,6 +90,7 @@ $(document).ready(function(){
 	var background = $("#la-option-background").val();
 
 	storage.set('currency', currency[$("#la-currency-list").val()]);
+	storage.set('timeFormat', timeFormat[$("#la-time-format").val()]);
 	storage.set('background', background != "" ? background : defaultBg);
 
 	$("#la-option-msg").text("Saved !").show().fadeOut(3000);
@@ -93,6 +99,12 @@ $(document).ready(function(){
     storage.get('currency', function(current){
 	$.each(currency, function (key, value){
 	    $("#la-currency-list").append($("<option>").attr(current == value ? {'selected' : 'selected'} : {}).html(key));
+	});
+    });
+
+	storage.get('timeFormat', function(format){
+	$.each(timeFormat, function (key, value){
+	    $("#la-time-format").append($("<option>").attr(format == value ? {'selected' : 'selected'} : {}).html(key));
 	});
     });
 
