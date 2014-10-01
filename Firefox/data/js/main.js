@@ -2,7 +2,7 @@ var bumps_url = [];
 var isLogged = $("#logout").length;
 
 
-var version = "2.4";
+var version = "2.5";
 var baseUrl = window.location.protocol + "//" + window.location.host + "/";
 var options = self.options;
 var appId = baseUrl.match(/csgo/) ? 730 : 570;
@@ -191,7 +191,7 @@ function startObserver()
 function setBackground()
 {
     storage.get("background", function(background){
-	document.body.style.backgroundImage = "url(" + background +")";
+	document.body.style.cssText = "background-image: url(" + background +") !important";
     });
 }
 
@@ -368,7 +368,6 @@ function addMinimizeButton(){
 		      "rate" : matchmain.find(".teamtext>i").eq(1).text(),
 		      "win"  : matchmain.find(".teamtext").eq(1).prev().find("img").length}];
 
-	console.log(teams);
 	matchmain.find(".la-match-info").html("<b>" + teams[0].name + (teams[0].win ? "<img height='20px' src='/img/won.png'>" : "") +"</b> <i>" + teams[0].rate + "</i><span class='la-vs'> vs </span><b>" + teams[1].name + (teams[1].win ? "<img height='20px' src='/img/won.png'>" : "" )+ "</b><i> " + teams[1].rate + "</i>");
 
 	if ($(this).text() == "+"){
@@ -430,61 +429,70 @@ function addTime()
     hour = parseInt(hour) - tzOffset,
     AMorPM = "";
 
-    // Converts CEST to local on match page.
-    if ($timeBox.length) {
-    	var timeInCEST = $timeBox.text().match(/(\d+):(\d+)/);
-    	var hour = timeInCEST[1];
-    	var minute = timeInCEST[2];
+    storage.get("timeFormat", function(format){
+	// Converts CEST to local on match page.
+	if ($timeBox.length) {
+    	    var timeInCEST = $timeBox.text().match(/(\d+):(\d+)/);
+    	    var hour = timeInCEST[1];
+    	    var minute = timeInCEST[2];
+    	    hour = hour - tzOffset;
+    	    hour = (hour < 0) ? 24 + hour : hour;
 
-    	hour = hour - tzOffset;
-    	hour = (hour < 0) ? 24 + hour : hour;
-
-    	if (hour == 12) {
-    	    AMorPM = "PM";
-    	} else if (hour > 12) {
-    	    hour = hour - 12;
-    	    AMorPM = "PM";
-    	} else {
-    	    AMorPM = "AM";
-    	}
-
-    	$timeBox.text(hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
-    }
-
-    // Shows times on front page.
-
-
-    $boxes = $(".whenm:nth-child(1)");
-
-    if ($boxes.length) {
-	$boxes.each(function(i) {
-	    var timeText = $(this).text();
-	    if (timeText.match(/day/))
-		return 0;
-	    var offset = timeText.match(/\d+/)[0];
-	    var isFuture = timeText.match("ago") > 0 ?  -1 : 1;
-
-	    if (timeText.match(/hour/))
-		var gameTime = new Date(dt.getTime() + (offset * 3600000 * isFuture));
-	    else
-		var gameTime = new Date(dt.getTime() + (offset * 60000 * isFuture));
-
-	    var gameHour = gameTime.getHours();
-	    var gameMinute = gameTime.getMinutes();
-
-	    if ($(this).text().match(/hour/)) {
-		if (theMinutes > 30) gameHour = gameHour + 1;
-		gameMinute = "00";
-	    } else {
-		gameMinute = (gameMinute === 0) ? "00" : gameMinute;
+	    if (format === "24h"){
+		$timeBox.text(hour % 24 + ":" + minute + " (" + $timeBox.text()+ ")");
 	    }
+	    else {
+    		if (hour == 12) {
+    		    AMorPM = "PM";
+    		} else if (hour > 12) {
+    		    hour = hour - 12;
+    		    AMorPM = "PM";
+    		} else {
+    		    AMorPM = "AM";
+    		}
 
-	    AMorPM = (gameHour >= 12) ? "PM" : "AM";
-	    gameHour = (gameHour > 12) ? gameHour - 12 : gameHour;
+    		$timeBox.text(hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
+	    }
+	}
 
-	    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
-	});
-    }
+	// Shows times on front page.
+
+
+	$boxes = $(".whenm:nth-child(1)");
+	if ($boxes.length) {
+	    $boxes.each(function(i) {
+		var timeText = $(this).text();
+		if (timeText.match(/day/))
+		    return 0;
+		var offset = timeText.match(/\d+/)[0];
+		var isFuture = timeText.match("ago") > 0 ?  -1 : 1;
+
+		if (timeText.match(/hour/))
+		    var gameTime = new Date(dt.getTime() + (offset * 3600000 * isFuture));
+		else
+		    var gameTime = new Date(dt.getTime() + (offset * 60000 * isFuture));
+
+		var gameHour = gameTime.getHours();
+		var gameMinute = gameTime.getMinutes();
+
+		if ($(this).text().match(/hour/)) {
+		    if (theMinutes > 30) gameHour = gameHour + 1;
+		    gameMinute = "00";
+		} else {
+		    gameMinute = (gameMinute === 0) ? "00" : gameMinute;
+		}
+		if (format === "24h"){
+		    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + ")");
+		}
+		else {
+		    AMorPM = (gameHour >= 12) ? "PM" : "AM";
+		    gameHour = (gameHour > 12) ? gameHour - 12 : gameHour;
+
+		    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
+		}
+	    });
+	}
+    });
 }
 
 
