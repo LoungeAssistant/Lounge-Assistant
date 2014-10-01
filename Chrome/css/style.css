@@ -43,6 +43,9 @@ html{
 
 .title{
     position: relative !important;
+    margin-bottom: -20px !important;
+    font-size: 24px !important;
+    height: 40px !important;
 }
 
 .box  {
@@ -54,18 +57,33 @@ html{
     padding-bottom: 20px  !important;
 }
 #submenu {
+    border-top: 1px solid black;
+    position: absolute;
+    left : 0;
+    top : 73px;
     border-right : 1px solid #000 !important;
     min-height: 100% !important;
     background: #313131 !important;
     background-position : center  15px !important;
-    top: 73px !important;
-    position: absolute !important;
-    left: 0 !important;
+    float: left !important;
+    transition:margin-left 500ms;
+    z-index: 100;
+}
+
+#submenu>div{
+
 }
 
 #main {
     margin-right: 0px  !important;
-    margin-left : 205px  !important}
+    margin-left : 200px;
+    transition:margin-left 500ms;
+}
+main {
+    margin-right: 0px  !important;
+    margin-left : 200px;
+    transition:margin-left 500ms;
+}
 
 .left, .right {
     background-color: rgba(35, 35, 35, 0.7)  !important;
@@ -76,12 +94,13 @@ html{
 }
 
 body {
-    background-repeat : no-repeat !important;
+/*    background-repeat : no-repeat !important;*/
     background-position : center top !important;
     background-color : #000 !important;
-    background-image: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL) no-repeat !important;
+    background-image: url(http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL) !important;
     background-color: #000 !important;
 }
+
 
 
 /*######################################################################*/
@@ -90,7 +109,6 @@ body {
 
 
 .tradeheader {
-    font-size : 16px  !important;
     background: none  !important;
     background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%)  !important;
 }
@@ -100,6 +118,7 @@ body {
     color: #FFF !important;
     text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
 }
+
 .tradeheader>a>span.user>b {
     color: #888 !important;
 }
@@ -130,7 +149,6 @@ div.tradecnt {
 
 
 .matchheader {
-    font-size : 16px  !important;
     background: none  !important;
     background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.3) 0%, rgba(41, 41, 41, 0) 65%)  !important;
 }
@@ -191,6 +209,12 @@ a.buttonright:hover, a.button:hover{
 /* PROFILE */
 /*######################################################################*/
 
+#reputation-plus, #reputation-minus{
+    width: 200px !Important;
+    background: #b2b2b2 !important;
+    background-image: linear-gradient(#3F3F3F 0%, #262626 100%) !important;
+    box-shadow: rgb(0, 0, 0) 0px 0px 4px 0px !important;
+}
 
 .box-shiny-alt, .box-shiny, #ajaxCont{
     background-color: none !important;
@@ -275,9 +299,9 @@ tr:nth-child(even) {
 /*######################################################################*/
 
 .bpheader{
-    background-color: rgba(0, 0, 0, 0);
-    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.298039) 0%, rgba(41, 41, 41, 0) 65%);
-    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0) !important;
+    background-image: radial-gradient(at 50% 0%, rgba(122, 122, 122, 0.298039) 0%, rgba(41, 41, 41, 0) 65%) !important;
+    color: rgb(255, 255, 255) !important;
     font-size: 16px;
     font-weight: bold;
     height: 15px;
@@ -307,6 +331,16 @@ tr:nth-child(even) {
     background-color: rgb(17, 17, 17);
 }
 
+
+#teamA, #teamB{
+    font-size: 24px;
+    text-shadow : 0 0 15px rgba(255, 255, 255, 0.5) !important;
+    pre
+}
+
+#teamA::before , #teamB::before {
+    content: "$";
+}
 
 
 /*######################################################################*/
@@ -617,8 +651,9 @@ th {
 }
 
 #replist>li>a{
-    color : #FF8A00;
+    color : #FFF;
 }
+
 
 #replist>li:nth-child(odd) {
     background-color: rgba(0, 0, 0, 0.15)!important;
@@ -704,3 +739,128 @@ span.publisher-anchor-color>a{
     margin-left: 10px;
     font-weight: lighter;
 }
+
+
+
+.la-total-value-div{
+    padding: 10px;
+    width:95%;
+    margin-bottom: 20px;
+}
+
+.la-total-value{
+    color :rgb(187, 187, 187);
+    font-weight: bold;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 10px;
+}
+
+.la-total-value table{
+    margin-top:20px;
+    width: 60%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.la-total-value-items{
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 10px;
+}
+
+.la-total-value-items tr{
+    border: none !important;
+    background : none !important;
+}
+
+.la-total-value-items>tbody>tr>td{
+    width: 300px;
+}
+
+.la-total-value td{
+    padding:5px 20px;
+}
+
+.la-total-value-betsize{
+    font-size: 14px;
+    margin-top:15px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.la-total-value-betsize td{
+    width: 20%;
+}
+
+.la-hide-div{
+    position: relative;
+
+    left : 200px;
+    top: 50px;
+    display: block;
+
+    background-color: rgb(45, 45, 45);
+    padding-right: 4px;
+
+    float:right;
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    z-index: 10;
+}
+
+.la-hide-menu{
+    color : #FF8A00;
+    text-shadow : rgb(0, 0, 0) 1px 1px 0px !important;
+    font-weight: bold;
+    font-size: 16px;
+    margin : auto;
+}
+
+
+
+#submenu.la-display-menu{
+    margin-left: -200px;
+    transition: margin-left 500ms;
+}
+#main.la-display-menu{
+    margin-left: 0px !important;
+    transition:margin-left 500ms;
+}
+main.la-display-menu{
+    margin-left: 0px !important;
+    transition:margin-left 500ms;
+}
+
+@media screen and (max-width : 1400px) {
+    #submenu{
+	margin-left: -200px;
+	transition:margin-left 500ms;
+    }
+
+    main{
+	margin-left: 0px;
+	transition:margin-left 500ms;
+    }
+    #main{
+	margin-left: 0px !important;
+	transition:margin-left 500ms;
+    }
+
+    #submenu.la-display-menu{
+	margin-left: 0px;
+    }
+}
+@media screen and (max-width:87em) {
+    #submenu{
+	top : 58px;
+    }
+}
+
+
+

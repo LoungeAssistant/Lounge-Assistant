@@ -6,7 +6,7 @@
     "description": "The csgolounge addon",
     "author": "",
     "license": "MPL 2.0",
-    "version": "2.2",
+    "version": "2.4.1",
     "permissions": {
         "cross-domain-content": ["http://loungeassistant.bi.tk/", "http://datapoint.metoffice.gov.uk", "http://steamcommunity.com"]
     }
