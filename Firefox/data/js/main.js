@@ -2,7 +2,7 @@ var bumps_url = [];
 var isLogged = $("#logout").length;
 
 
-var version = "2.2";
+var version = "2.5";
 var baseUrl = window.location.protocol + "//" + window.location.host + "/";
 var options = self.options;
 var appId = baseUrl.match(/csgo/) ? 730 : 570;
@@ -191,15 +191,22 @@ function startObserver()
 function setBackground()
 {
     storage.get("background", function(background){
-	document.body.style.backgroundImage = "url(" + background +")";
+	document.body.style.cssText = "background-image: url(" + background +") !important";
     });
 }
 
 function addMenu(){
-    $("#submenu>div").first()
+    $("#submenu").prepend($("<div>").attr("class", "la-hide-div").append($("<span>").attr("class", "la-hide-menu").html("<<br><")));
+
+    $("#submenu>div").eq(1).css("margin-top", "-50px")
 	.append($("<a>").html("Trades : Not logged in").attr({"id" : "la-trade", "title" : "Bump all"}))
 	.append($("<a>").html("Won : Not logged in").attr("id", "la-winloose"))
 	.append($("<a>").html("Infinite trade list").attr("href", "/trades"));
+
+    $(".la-hide-div").click(function(){
+    	$("#submenu").toggleClass("la-display-menu");
+    	$("#main, main").toggleClass("la-display-menu");
+    });
 }
 
 function displayBotStatus(){
@@ -354,11 +361,14 @@ function addMinimizeButton(){
 	$(this).text($(this).text() == "+" ? "-" : "+");
 	var matchmain = $(this).parents(".matchmain");
 	var teams = [{"name" : matchmain.find(".teamtext>b").eq(0).text(),
-		      "rate" : matchmain.find(".teamtext>i").eq(0).text()},
+		      "rate" : matchmain.find(".teamtext>i").eq(0).text(),
+		      "win"  : matchmain.find(".teamtext").eq(0).prev().find("img").length
+		     },
 		     {"name" : matchmain.find(".teamtext>b").eq(1).text(),
-		      "rate" : matchmain.find(".teamtext>i").eq(1).text()}];
+		      "rate" : matchmain.find(".teamtext>i").eq(1).text(),
+		      "win"  : matchmain.find(".teamtext").eq(1).prev().find("img").length}];
 
-	matchmain.find(".la-match-info").html("<b>" + teams[0].name + "</b> <i>" + teams[0].rate + "</i><span class='la-vs'> vs </span><b>" + teams[1].name + "</b><i> " + teams[1].rate + "</i>");
+	matchmain.find(".la-match-info").html("<b>" + teams[0].name + (teams[0].win ? "<img height='20px' src='/img/won.png'>" : "") +"</b> <i>" + teams[0].rate + "</i><span class='la-vs'> vs </span><b>" + teams[1].name + (teams[1].win ? "<img height='20px' src='/img/won.png'>" : "" )+ "</b><i> " + teams[1].rate + "</i>");
 
 	if ($(this).text() == "+"){
 	    matchmain.find(".match").fadeOut(400, "swing", function(){
@@ -403,19 +413,6 @@ $(".match").on('mouseenter', function (){
 
 });
 
-//  Not called, but still here for the properity
-
-/*
-function LoveMeTenderLoveMeTrue()
-{
-    $.ajax({
-	type: "POST",
-        url: "ajax/addReputation.php",
-        data: "id=76561198039350660",
-    });
-}
-
-*/
 
 function addTime()
 {
@@ -431,85 +428,151 @@ function addTime()
     tzOffset = (dt.getTimezoneOffset()/60) + 2,
     hour = parseInt(hour) - tzOffset,
     AMorPM = "";
-	timeFormat = "";
-	storage.get("timeFormat", function(format){
-		timeFormat = format;
+
+    storage.get("timeFormat", function(format){
+	// Converts CEST to local on match page.
+	if ($timeBox.length) {
+    	    var timeInCEST = $timeBox.text().match(/(\d+):(\d+)/);
+    	    var hour = timeInCEST[1];
+    	    var minute = timeInCEST[2];
+    	    hour = hour - tzOffset;
+    	    hour = (hour < 0) ? 24 + hour : hour;
+
+	    if (format === "24h"){
+		$timeBox.text(hour % 24 + ":" + minute + " (" + $timeBox.text()+ ")");
+	    }
+	    else {
+    		if (hour == 12) {
+    		    AMorPM = "PM";
+    		} else if (hour > 12) {
+    		    hour = hour - 12;
+    		    AMorPM = "PM";
+    		} else {
+    		    AMorPM = "AM";
+    		}
+
+    		$timeBox.text(hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
+	    }
+	}
+
+	// Shows times on front page.
+
+
+	$boxes = $(".whenm:nth-child(1)");
+	if ($boxes.length) {
+	    $boxes.each(function(i) {
+		var timeText = $(this).text();
+		if (timeText.match(/day/))
+		    return 0;
+		var offset = timeText.match(/\d+/)[0];
+		var isFuture = timeText.match("ago") > 0 ?  -1 : 1;
+
+		if (timeText.match(/hour/))
+		    var gameTime = new Date(dt.getTime() + (offset * 3600000 * isFuture));
+		else
+		    var gameTime = new Date(dt.getTime() + (offset * 60000 * isFuture));
+
+		var gameHour = gameTime.getHours();
+		var gameMinute = gameTime.getMinutes();
+
+		if ($(this).text().match(/hour/)) {
+		    if (theMinutes > 30) gameHour = gameHour + 1;
+		    gameMinute = "00";
+		} else {
+		    gameMinute = (gameMinute === 0) ? "00" : gameMinute;
+		}
+		if (format === "24h"){
+		    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + ")");
+		}
+		else {
+		    AMorPM = (gameHour >= 12) ? "PM" : "AM";
+		    gameHour = (gameHour > 12) ? gameHour - 12 : gameHour;
+
+		    $(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
+		}
+	    });
+	}
+    });
+}
+
+
+function displayAllValue(){
+    var totalValue = 0.0;
+
+    var itemsCount = {
+	'Covert'     : 0.0,
+	'Classified' : 0.0,
+	'Restricted' : 0.0,
+	'Mil-Spec'   : 0.0,
+	'Industrial' : 0.0,
+	'Consumer'   : 0.0,
+	'Other'      : 0.0
+    };
+
+    if ($("#backpack").length && $(".la-total-value-div").length == 0)
+    {
+	$("#backpack > .item").each(function() {
+	    var type = $(this).children("div.rarity")[0].classList[1];
+            var value = parseFloat($(this).children("div.value")[0].innerHTML.replace("$ ", ""));
+
+	    if (type in itemsCount)
+		itemsCount[type] += value;
+	    else
+		itemsCount['Other'] += value;
+	    totalValue += value;
 	});
 
-    // Converts CEST to local on match page.
-    if ($timeBox.length) {
-    	var timeInCEST = $timeBox.text().match(/(\d+):(\d+)/);
-    	var hour = timeInCEST[1];
-    	var minute = timeInCEST[2];
+	var totalValue = totalValue.toFixed(2);
+	var small = (.05 * totalValue).toFixed(2);
+	var medium = (.1 * totalValue).toFixed(2);
+	var large = (.2 * totalValue).toFixed(2);
 
-    	hour = hour - tzOffset;
-    	hour = (hour < 0) ? 24 + hour : hour;
+	$(".bpheader").after(
+	    $("<div>").attr("class", "la-total-value-div")
+		.append($("<div>").attr("class", "la-total-value").text("Your items are worth: $")
+			.append($("<strong>")).append(totalValue))
+		.append($("<table>").attr("class", "la-total-value-items"))
+	    	.append($("<table>").attr("class", "la-total-value-betsize")
+			.append($("<tr>")
+				.append($("<td>").text("Small bet : $" + small))
+				.append($("<td>").text("Medium bet : $" + medium))
+				.append($("<td>").text("Large bet : $" + large))
+			       )
+		       )
+	);
 
-		if (timeFormat == "24h") {
-			$timeBox.text("Local time: " + hour + ":" + minute);
-		} else {
-			if (hour == 12) {
-				AMorPM = "PM";
-			} else if (hour > 12) {
-				hour = hour - 12;
-				AMorPM = "PM";
-			} else {
-				AMorPM = "AM";
-			}
+	var idx=0;
+	$.each(itemsCount, function(key, value){
+	    if (idx % 2 == 0 ) $(".la-total-value-items").append($("<tr>"));
 
-			$timeBox.text(hour + ":" + minute + " " + AMorPM + " (" + $timeBox.text()+ ")");
-		}
-    }
+	    $(".la-total-value-items tr:last-child").append($("<td>").append(
+		$("<b>").css("color", colors[key]).text(key)
+	    ).append(" : $" + value.toFixed(2)));
 
-    // Shows times on front page.
-
-
-    $boxes = $(".whenm:nth-child(1)");
-
-    if ($boxes.length) {
-	$boxes.each(function(i) {
-	    var timeText = $(this).text();
-	    if (timeText.match(/day/))
-		return 0;
-	    var offset = timeText.match(/\d+/)[0];
-	    var isFuture = timeText.match(/ago/) ?  -1 : 1;
-
-	    if (timeText.match(/hour/))
-		var gameTime = new Date(dt.getTime() + (offset * 3600000 * isFuture));
-	    else
-		var gameTime = new Date(dt.getTime() + (offset * 60000 * isFuture));
-
-	    var gameHour = gameTime.getHours();
-	    var gameMinute = gameTime.getMinutes();
-
-	    if ($(this).text().match(/hour/)) {
-		if (theMinutes > 30) gameHour = gameHour + 1;
-		gameMinute = "00";
-	    } else {
-		gameMinute = (gameMinute === 0) ? "00" : gameMinute;
-	    }
-
-		if (timeFormat == "24h") {
-			$(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + ")");
-		} else {
-			AMorPM = (gameHour >= 12) ? "PM" : "AM";
-			gameHour = (gameHour > 12) ? gameHour - 12 : gameHour;
-				$(this).find(".la-time-match").text(" (" + gameHour + ":" + gameMinute + " " + AMorPM + ")");
-		}
+	    idx++;
 	});
     }
 }
 
-addMinimizeButton();
-setBackground();
+
+
 addMenu();
+setBackground();
+addMinimizeButton();
 addTime();
 addInventoryLink();
 displayBotStatus();
 
-if (isLogged)
+
+if (window.location.href.match(/\/match\?m=\d+/))
 {
     addAutoSubmit();
+    $("#placebut").after($("<a>").text("All Value").attr("class", "buttonright la-value-button"));
+    $(".la-value-button").click(displayAllValue);
+}
+
+if (isLogged)
+{
     winLoss();
     trade();
 }

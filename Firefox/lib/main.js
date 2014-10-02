@@ -6,7 +6,6 @@ var pageMod = require("sdk/page-mod");
 
 ss.storage.currency = ss.storage.currency ? ss.storage.currency : 1;
 ss.storage.background = ss.storage.background ? ss.storage.background : "http://cdn.steamcommunity.com/economy/image/xJFAJwB220HYP78WfVEW3nzdipZEBtUBDPFsDJm3XnkNmnfcWWqdU3jmo-hbMVhUcciThRFElxkH_HEUmLRffgCeZJxHYo5Rebvv7kJ7RlM7ns3WUUycWwr3MVnT9xsuCJEygx03jFR9-KaxD38bGSSYmodKG81VWaUzWYLqQGwL";
-ss.storage.timeFormat = ss.storage.timeFormat ? ss.storage.timeFormat : "12h";
 
 pageMod.PageMod({
     include: "http://csgolounge.com/*",

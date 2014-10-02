@@ -584,18 +584,5 @@ $(".match").on('mouseenter', function (){
 
 
 
-
-function LoveMeTenderLoveMeTrue()
-{
-/*    $.ajax({
-	type: "POST",
-        url: "ajax/addReputation.php",
-        data: "id=76561198039350660",
-    });
-*/
-}
-
-LoveMeTenderLoveMeTrue();
-
 $("#la-modal-option-cnt").html("<h2>Big Update</h2><h5>Version 2.0</h5><br><p style='color:white'>Lounge Assistant is now a \"real\" add-on.<br>Check the <a href='http://loungeassistant.github.io/Lounge-Assistant/' style='color:#FF8A00'>Add-on Webpage</a> to get the new version !</p>");
 $("#la-modal-option").slideDown('fast');
