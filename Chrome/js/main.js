@@ -428,7 +428,6 @@ function addTime()
     tzOffset = (dt.getTimezoneOffset()/60) + 2,
     hour = parseInt(hour) - tzOffset,
     AMorPM = "";
-	dt.setSeconds(0);
 
     storage.get("timeFormat", function(format){
 	// Converts CEST to local on match page.
