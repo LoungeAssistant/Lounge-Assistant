@@ -465,7 +465,7 @@ function addTime()
 		if (timeText.match(/day/))
 		    return 0;
 		var offset = timeText.match(/\d+/)[0];
-		var isFuture = timeText.match("ago") > 0 ?  -1 : 1;
+		var isFuture = timeText.match(/ago/) ?  -1 : 1;
 
 		if (timeText.match(/hour/))
 		    var gameTime = new Date(dt.getTime() + (offset * 3600000 * isFuture));
