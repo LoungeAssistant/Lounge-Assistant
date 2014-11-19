@@ -56,6 +56,8 @@ html{
     color: rgb(187, 187, 187)  !important;
     padding-bottom: 20px  !important;
 }
+/*
+TODO: fix this
 #submenu {
     border-top: 1px solid black;
     position: absolute;
@@ -69,7 +71,7 @@ html{
     transition:margin-left 500ms;
     z-index: 100;
 }
-
+*/
 #submenu>div{
 
 }
@@ -79,12 +81,14 @@ html{
     margin-left : 200px;
     transition:margin-left 500ms;
 }
+/*
+TODO: fix this
 main {
     margin-right: 0px  !important;
     margin-left : 200px;
     transition:margin-left 500ms;
 }
-
+*/
 .left, .right {
     background-color: rgba(35, 35, 35, 0.7)  !important;
     border: solid 1px black  !important;
