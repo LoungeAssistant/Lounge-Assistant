@@ -29,7 +29,7 @@ html{
     box-shadow : rgba(0, 0, 0, 0.9) 0px 2px 15px 0px inset !important;
     margin-top : -5px !important;
     border-radius : 0 !important;
-    height : 10px !important;
+    height : 14px !important;
 }
 
 .item{
@@ -137,7 +137,7 @@ div.tradecnt {
 }
 .item {
     height: auto  !important;
-    width: 23% !important;
+    width: auto !important;
     background-image: radial-gradient(at 40% 40%, rgb(63, 63, 63) 0%, rgb(41, 41, 41) 80%)  !important;
     border: 1px solid black  !important;
     margin: 2px !important;
