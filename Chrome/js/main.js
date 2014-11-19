@@ -196,6 +196,27 @@ function setBackground()
 }
 
 function addMenu(){
+var trades = document.createElement('a');
+trades.innerHTML = 'Trades : Not logged in';
+trades.id = 'la-trade';
+trades.title = 'Bump all';
+
+var betHistory = document.createElement('a');
+betHistory.innerHTML = 'Won : Not logged in';
+betHistory.id = 'la-winloose';
+
+var infTradeList = document.createElement('a');
+infTradeList.innerHTML = 'Infinite trade list';
+infTradeList.href = "/trades";
+
+var els = document.getElementsByTagName("nav");
+for (var i = 0, l = els.length; i < l; i++) {
+    var el = els[i];
+    el.appendChild(trades);
+    el.appendChild(betHistory);
+    el.appendChild(infTradeList);
+}
+/*
     $("#submenu").prepend($("<div>").attr("class", "la-hide-div").append($("<span>").attr("class", "la-hide-menu").html("<<br><")));
 
     $("#submenu>div").eq(1).css("margin-top", "-50px")
@@ -207,6 +228,7 @@ function addMenu(){
     	$("#submenu").toggleClass("la-display-menu");
     	$("#main, main").toggleClass("la-display-menu");
     });
+*/
 }
 
 function displayBotStatus(){
