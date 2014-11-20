@@ -425,7 +425,7 @@ function addTime()
     dt = new Date(),
     theHour = dt.getHours(),
     theMinutes = dt.getMinutes(),
-    tzOffset = (dt.getTimezoneOffset()/60) + 2,
+    tzOffset = (dt.getTimezoneOffset()/60) + 1,
     hour = parseInt(hour) - tzOffset,
     AMorPM = "";
 
