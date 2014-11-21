@@ -209,13 +209,10 @@ var infTradeList = document.createElement('a');
 infTradeList.innerHTML = 'Infinite trade list';
 infTradeList.href = "/trades";
 
-var els = document.getElementsByTagName("nav");
-for (var i = 0, l = els.length; i < l; i++) {
-    var el = els[i];
-    el.appendChild(trades);
-    el.appendChild(betHistory);
-    el.appendChild(infTradeList);
-}
+var nav = document.getElementsByTagName("nav")[1];
+nav.appendChild(trades);
+nav.appendChild(betHistory);
+nav.appendChild(infTradeList);
 /*
     $("#submenu").prepend($("<div>").attr("class", "la-hide-div").append($("<span>").attr("class", "la-hide-menu").html("<<br><")));
 
