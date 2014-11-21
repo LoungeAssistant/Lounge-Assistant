@@ -50,9 +50,9 @@ html{
 
 .box  {
     background-color: rgba(45, 45, 45, 0.7) !important;
-    width: 48% !important;
+    /* width: 48% !important; */
     height: auto  !important;
-    border: 1px solid black  !important;
+    /* border: 1px solid black  !important; */
     color: rgb(187, 187, 187)  !important;
     padding-bottom: 20px  !important;
 }
