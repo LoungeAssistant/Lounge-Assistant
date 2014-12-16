@@ -173,6 +173,7 @@ div.tradecnt {
     border: solid 1px black  !important;
     border-radius: 0  !important;
     margin-right: 5px !important;
+    color: rgb(119, 136, 153);
 }
 
 #bets>.matchmain>.match{
